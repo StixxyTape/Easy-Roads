@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://b486puyfel2mi"]
+
+[ext_resource type="Texture2D" uid="uid://g4oetsqgtn78" path="res://icon.svg" id="1_04240"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bmtyw"]
+size = Vector2(12, 12)
+
+[node name="Car" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_bmtyw")
+
+[node name="Icon" type="Sprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_04240")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+process_callback = 0
+limit_left = 0
+limit_top = 0
+position_smoothing_enabled = true
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 10.0
+path_postprocessing = 1
