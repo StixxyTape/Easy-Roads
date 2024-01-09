@@ -1,0 +1,227 @@
+[gd_scene load_steps=11 format=3 uid="uid://d3edesn5jh6g5"]
+
+[ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
+[ext_resource type="Script" path="res://Scenes/HoverState.gd" id="2_df06t"]
+[ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="2_pv2pt"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syo7a"]
+atlas = ExtResource("1_bl377")
+region = Rect2(384, 80, 112, 104)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yxc4"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms0bv"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqk31"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo3yr"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssi8q"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54bfg"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(32, 64, 16, 16)
+
+[node name="UI" type="CanvasLayer"]
+
+[node name="Remove" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -83.0
+offset_right = -193.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "remove"
+
+[node name="TextureRect" type="TextureRect" parent="Remove"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8yxc4")
+
+[node name="Tjunction" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -205.0
+offset_top = -83.0
+offset_right = -93.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "tjunction"
+
+[node name="TextureRect" type="TextureRect" parent="Tjunction"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ms0bv")
+
+[node name="RoadTurn" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -83.0
+offset_right = -13.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "turn"
+
+[node name="TextureRect" type="TextureRect" parent="RoadTurn"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_dqk31")
+
+[node name="RoadStraight" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -44.9999
+offset_top = -82.9999
+offset_right = 67.0001
+offset_bottom = 21.0001
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "straigth"
+
+[node name="TextureRect" type="TextureRect" parent="RoadStraight"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_mo3yr")
+
+[node name="Cross" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = -83.0
+offset_right = 147.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "cross"
+
+[node name="TextureRect" type="TextureRect" parent="Cross"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ssi8q")
+
+[node name="Roundabout" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -83.0
+offset_right = 227.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_df06t")
+type = "roundabout"
+
+[node name="TextureRect" type="TextureRect" parent="Roundabout"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_54bfg")

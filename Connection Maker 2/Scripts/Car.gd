@@ -7,13 +7,10 @@ var spawnPos : Vector2
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
 
 func _ready():
-	
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
 
-	
 func actor_setup():
-	
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
 	await get_tree().create_timer(1).timeout
@@ -23,7 +20,7 @@ func actor_setup():
 func set_movement_target(movement_target: Vector2):
 	navAgent.target_position = movement_target
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var currentAgentPos: Vector2 = global_position
 	var nextPathPos: Vector2 = navAgent.get_next_path_position()
 	

@@ -1,0 +1,10 @@
+res://Scenes/main.tscn
+res://Scripts/Car.gd
+res://Scripts/GridSystem.gd
+res://Scripts/Global.gd
+res://Scenes/ui.tscn
+res://Scripts/UI.gd
+res://Scenes/RoadButton.gd
+res://Scenes/Buttons.gd
+res://Scenes/HoverState.gd
+res://Scenes/car.tscn

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://oe20gmpsemvl"
-path="res://.godot/imported/Cinema.png-e7cdfb513b9c318aa1d3ff2f1913a74d.ctex"
+uid="uid://bpiqgttfuqcj2"
+path="res://.godot/imported/UI.png-2b6c356587cc3dfd9c553226efe339c0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Cinema.png"
-dest_files=["res://.godot/imported/Cinema.png-e7cdfb513b9c318aa1d3ff2f1913a74d.ctex"]
+source_file="res://Art/UI/UI.png"
+dest_files=["res://.godot/imported/UI.png-2b6c356587cc3dfd9c553226efe339c0.ctex"]
 
 [params]
 
