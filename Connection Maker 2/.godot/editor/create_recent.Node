@@ -1,7 +1,7 @@
-TextureButton
 Label
+TextureButton
+Button
 TextureRect
 Control
-Button
 Sprite2D
 CanvasLayer

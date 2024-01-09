@@ -3,3 +3,4 @@ res://Scenes/main.tscn
 res://Scenes/car.tscn
 res://Scenes/TimeButton.gd
 res://Scripts/Global.gd
+res://Scripts/TimeButton.gd
