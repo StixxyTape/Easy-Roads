@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="1_nbaej"]
 [ext_resource type="Texture2D" uid="uid://oe20gmpsemvl" path="res://Art/Houses/Cinema.png" id="2_mc58q"]
 [ext_resource type="Script" path="res://Scripts/GridSystem.gd" id="3_q74ai"]
-[ext_resource type="PackedScene" uid="uid://d3edesn5jh6g5" path="res://Scenes/ui.tscn" id="4_5cxmc"]
+[ext_resource type="PackedScene" uid="uid://cjs7l4lexk18c" path="res://Scenes/ui.tscn" id="4_5cxmc"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_uwqy1"]
 
