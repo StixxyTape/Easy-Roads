@@ -1,21 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://b486puyfel2mi"]
+[gd_scene load_steps=5 format=3 uid="uid://b486puyfel2mi"]
 
-[ext_resource type="Texture2D" uid="uid://g4oetsqgtn78" path="res://icon.svg" id="1_04240"]
 [ext_resource type="Script" path="res://Scripts/Car.gd" id="1_busap"]
+[ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="2_f40ma"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bmtyw"]
-size = Vector2(12, 12)
+size = Vector2(18, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p1tep"]
+atlas = ExtResource("2_f40ma")
+region = Rect2(176, 80, 16, 16)
 
 [node name="Car" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_busap")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.6, 1.4)
 shape = SubResource("RectangleShape2D_bmtyw")
 
 [node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
-texture = ExtResource("1_04240")
+position = Vector2(-1.6, -7.6)
+scale = Vector2(-1.8, 1.8)
+texture = SubResource("AtlasTexture_p1tep")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
