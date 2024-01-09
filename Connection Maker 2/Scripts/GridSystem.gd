@@ -36,7 +36,9 @@ var mouseTile : Vector2
 var car : PackedScene = preload("res://Scenes/car.tscn")
 
 var currentTiles : Array
+var roadPlaced : Array[Vector2]
 var buildings : Array[Vector2]
+var placing : bool
 
 func _ready():
 	
@@ -161,7 +163,7 @@ func BuildSystem():
 	# Gets the tile at your mouse coordinates
 	mouseTile = local_to_map(get_global_mouse_position())
 	
-	if Input.is_action_just_pressed("Rotate"):
+	if Input.is_action_just_pressed("Rotate") and !placing:
 		tileCounter += 1
 
 	#if dic.has(str(mouseTile)):
@@ -177,9 +179,23 @@ func BuildSystem():
 	if Input.is_action_pressed("Left Click") and !Global.overButton and Global.roadType != "":
 		if Global.roadType == "remove":
 			erase_cell(0, mouseTile)
+			erase_cell(2, mouseTile)
 		else:
+			placing = true
 			if mouseTile not in buildings:
-				set_cell(0, mouseTile, 2, currentTiles[tileCounter])
+				if mouseTile not in roadPlaced:
+					roadPlaced.append(mouseTile)
+					set_cell(2, mouseTile, 2, currentTiles[tileCounter], 1)
+	if Input.is_action_pressed("Right Click") and !Global.overButton and Global.roadType != "":
+		if mouseTile in roadPlaced:
+					erase_cell(2, mouseTile)
+					var i = roadPlaced.find(mouseTile)
+					roadPlaced.pop_at(i)
+	if Input.is_action_just_released("Left Click") and !Global.overButton:
+		for pos in roadPlaced:
+			set_cell(0, pos, 2, currentTiles[tileCounter])
+		roadPlaced = []
+		placing = false
 
 func SetTile():
 	match Global.roadType:
