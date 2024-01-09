@@ -9,6 +9,7 @@ var curScale = get_scale()
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
 
 func _ready():
+	sprite.frame = randi_range(0,3)
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
 	rotation = 0

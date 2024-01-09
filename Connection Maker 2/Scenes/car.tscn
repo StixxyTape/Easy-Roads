@@ -8,7 +8,7 @@ size = Vector2(18, 6)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p1tep"]
 atlas = ExtResource("2_f40ma")
-region = Rect2(176, 80, 16, 16)
+region = Rect2(176, 80, 32, 32)
 
 [node name="Car" type="CharacterBody2D"]
 scale = Vector2(0.5, 0.5)
@@ -22,6 +22,8 @@ shape = SubResource("RectangleShape2D_bmtyw")
 position = Vector2(-1.6, -7.6)
 scale = Vector2(-1.8, 1.8)
 texture = SubResource("AtlasTexture_p1tep")
+hframes = 2
+vframes = 2
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 path_desired_distance = 1.0
