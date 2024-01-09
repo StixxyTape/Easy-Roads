@@ -7,6 +7,9 @@ var overButton : bool
 
 var time : String = "play"
 
+# Timer for how long it takes bubbles to fill up
+var bubbleTimer : int = 20
+
 func _ready():
 	pass # Replace with function body.
 

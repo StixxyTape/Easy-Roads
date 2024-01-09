@@ -34,18 +34,21 @@ var structIDs : Array = [3]
 var mouseTile : Vector2
 
 var car : PackedScene = preload("res://Scenes/car.tscn")
+var bubble : PackedScene = preload("res://Scenes/bubble.tscn")
 
 var currentTiles : Array
 var roadPlaced : Array[Vector2]
 var buildings : Array[Vector2]
 var placing : bool
 
+var spawningHouse : bool = true
+
+# The cooldown between spawning houses
+var houseSpawnCooldown : int = 5
+
 func _ready():
 	
 	SetupStructures()
-	
-	for i in range(4):
-		SpawnHouse()
 	
 	# For each x coordinate
 	for x in gridSize:
@@ -74,6 +77,7 @@ func SpawnHouse():
 		
 		for offset in marginOffsets:
 			gridPos = Vector2(randX, randY) + offset
+			
 			if dic.has(str(gridPos)):
 				positionTaken = true
 				break  # Stop checking further, a position is taken
@@ -90,11 +94,32 @@ func SpawnHouse():
 	set_cell(0, gridPos, 2, houseTiles[houseType])
 	buildings.append(gridPos)
 	
-	var spawnedCar = car.instantiate()
-	spawnedCar.position = map_to_local(gridPos)
-	spawnedCar.spawnPos = map_to_local(gridPos)
-	add_child(spawnedCar)
-
+	return gridPos
+	
+func HouseManager():
+	var housePos : Vector2
+	
+	# Spawn a car after every houseSpawnCooldown seconds
+	if spawningHouse == true:
+		spawningHouse = false
+		await get_tree().create_timer(houseSpawnCooldown).timeout
+		housePos = SpawnHouse()
+		spawningHouse = true
+	
+	# Spawn a bubble and car at the house
+	if housePos:
+		var spawnedBubble = bubble.instantiate()
+		spawnedBubble.position = map_to_local(housePos)
+		spawnedBubble.position.y -= 20
+		spawnedBubble.position.x -= 8
+		add_child(spawnedBubble)
+		
+		var spawnedCar = car.instantiate()
+		spawnedBubble.add_child(spawnedCar)
+		spawnedCar.global_position = map_to_local(housePos)
+		spawnedCar.spawnPos = spawnedCar.position
+	
+	
 func SetupStructures():
 	
 	# To ensure there is atleast a one tile gap between structures
@@ -145,16 +170,17 @@ func SetupStructures():
 				"Type" : structName,
 				"Position" : str(gridPos)
 			}
-		
+			buildings.append(gridPos)
 		set_cell(0, Vector2(randX, randY), 3, Vector2.ZERO)
 		
 		Global.cinemaPos = map_to_local(Vector2(randX, randY + 1))
-		buildings.append_array([Vector2(randX, randY), Vector2(randX, randY + 1), 
-							Vector2(randX +1, randY), Vector2(randX +1, randY + 1),
-							Vector2(randX -1, randY), Vector2(randX -1, randY + 1)])
+		#buildings.append_array([Vector2(randX, randY), Vector2(randX, randY + 1), 
+							#Vector2(randX +1, randY), Vector2(randX +1, randY + 1),
+							#Vector2(randX -1, randY), Vector2(randX -1, randY + 1)])
 
 func _process(_delta):
 	BuildSystem()
+	HouseManager()
 
 func BuildSystem():
 	# Erase the preview tile
@@ -169,15 +195,18 @@ func BuildSystem():
 	#if dic.has(str(mouseTile)):
 		#print(dic[str(mouseTile)])
 	
-	# Sets a preview tile
+	# Sets selected tile type
 	SetTile()
+	
 	if tileCounter >= maxtiles:
 		tileCounter = 0
-	
+		
+	# Shows preview tile 
 	set_cell(1, mouseTile, 2, currentTiles[tileCounter], 1)
 	
+	
 	if Input.is_action_pressed("Left Click") and !Global.overButton and Global.roadType != "":
-		if Global.roadType == "remove":
+		if Global.roadType == "remove" and mouseTile not in buildings:
 			erase_cell(0, mouseTile)
 			erase_cell(2, mouseTile)
 		else:
@@ -185,7 +214,12 @@ func BuildSystem():
 			if mouseTile not in buildings:
 				if mouseTile not in roadPlaced:
 					roadPlaced.append(mouseTile)
+					dic[str(mouseTile)] = {
+						"Type" : "Road",
+						"Position" : str(mouseTile)
+						}
 					set_cell(2, mouseTile, 2, currentTiles[tileCounter], 1)
+					
 	if Input.is_action_pressed("Right Click") and !Global.overButton and Global.roadType != "":
 		if mouseTile in roadPlaced:
 					erase_cell(2, mouseTile)
@@ -193,7 +227,12 @@ func BuildSystem():
 					roadPlaced.pop_at(i)
 	if Input.is_action_just_released("Left Click") and !Global.overButton:
 		for pos in roadPlaced:
-			set_cell(0, pos, 2, currentTiles[tileCounter])
+				set_cell(0, pos, 2, currentTiles[tileCounter])
+				dic[str(pos)] = {
+					"Type" : "Road",
+					"Position" : str(pos)
+					}
+				
 		roadPlaced = []
 		placing = false
 

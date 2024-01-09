@@ -12,15 +12,15 @@ func _ready():
 	sprite.frame = randi_range(0,3)
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
-	rotation = 0
 
 func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
-	await get_tree().create_timer(1).timeout
 	# Now that the navigation map is no longer empty, set the movement target.
 	set_movement_target(Global.cinemaPos)
-
+	# Set rotation to be flat
+	rotation = 0
+	
 func set_movement_target(movement_target: Vector2):
 	navAgent.target_position = movement_target
 
@@ -35,10 +35,14 @@ func _physics_process(_delta):
 		sprite.offset.y = -5
 		set_scale(Vector2(curScale.x,-curScale.y))
 	
-	look_at(nextPathPos)
-	
+	# Only look at the next path position if you are able to reach the destination
+	if navAgent.is_target_reachable():
+
+		look_at(nextPathPos)
+
 	# If reached destination, don't run the rest of this code
 	if navAgent.is_navigation_finished():
+		get_parent().queue_free()
 		return
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
 		position = spawnPos
