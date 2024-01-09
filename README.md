@@ -10,5 +10,9 @@ Everytime a request is fulfilled, you earn money to spend on more roads and infr
 If a house goes too long without their needs being met, you lose the game.
 This can happen due to the roads getting too clogged, so you need to watch out for traffic.
 
-
-
+Polish:
+Camera Controls (moving to grid limit)
+Make Cars drive out of house instead of spawning ontop of house
+Fix Roundabout Navigation Polygon
+Fix Car rotation + offset
+Add bubble jitter when it gets close to expiring
