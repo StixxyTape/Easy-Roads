@@ -38,9 +38,10 @@ var emptyTile : Array = [Vector2(0, 1)]
 var houseTiles : Array = [Vector2(7,0), Vector2(8, 0), Vector2(9, 0),
 						 Vector2(10, 0), Vector2(11, 0)]
 # A list which stores all the ID's for structure tiles
-var structIDs : Array = [3]
+var structIDs : Array = [1, 3, 4, 5, 6]
 var mouseTile : Vector2
 
+# Variables that store the scene for the car and bubble
 var car : PackedScene = preload("res://Scenes/car.tscn")
 var bubble : PackedScene = preload("res://Scenes/bubble.tscn")
 
@@ -52,6 +53,7 @@ var touchedBuilding : bool
 var lastTilePos : Vector2
 var touchedBuildingPos : Vector2
 
+# Variable to check when spawning a house
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
@@ -59,13 +61,16 @@ var houseSpawnCooldown : int = 5
 
 func _ready():
 	SetupStructures()
-	
-	# Loop through the specified area and set the tile index for each cell
+	SetupBuildArea()
+
+func SetupBuildArea():
+	# Loop through the specified area and set the tile for each cell
 	for x in range(start_x, start_x + width):
 		for y in range(start_y, start_y + height):
+			await get_tree().create_timer(0.01).timeout
 			buildArea.append(Vector2(x,y))
 			set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
-
+			
 func SpawnHouse():
 	var positionTaken = false
 	var randX : int
@@ -73,12 +78,14 @@ func SpawnHouse():
 	var houseType : int = randi_range(0, 4)
 	
 	var gridPos : Vector2
+	# Offsets to make sure the house doesn't spawn next to another structure
 	var marginOffsets = [
 		Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1),
 		Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0),
 		Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)
 	]
 	
+	# Loop that only breaks when found a suitable spawn position
 	while true:
 		randX = randi_range(-gridSize -6, gridSize +6)
 		randY = randi_range(-gridSize, gridSize)
@@ -96,14 +103,17 @@ func SpawnHouse():
 			gridPos = Vector2(randX, randY)
 			break  # Found an available position, exit the loop
 	
+	# Stores tile data in the dictionary
 	dic[str(gridPos)] = {
 				"Type" : "House",
 				"Position" : str(gridPos)
 			}
-			
+	
 	set_cell(0, gridPos, 2, houseTiles[houseType])
+	# Adds position to buildings list
 	buildings.append(gridPos)
 	
+	# Returns spawn position
 	return gridPos
 	
 func HouseManager():
@@ -118,17 +128,19 @@ func HouseManager():
 	
 	# Spawn a bubble and car at the house
 	if housePos:
+		# Instantiates bubble with offset
 		var spawnedBubble = bubble.instantiate()
 		spawnedBubble.position = map_to_local(housePos)
 		spawnedBubble.position.y -= 25
 		spawnedBubble.position.x -= 8
 		add_child(spawnedBubble)
 		
+		# Instantiates Car
 		var spawnedCar = car.instantiate()
 		add_child(spawnedCar)
-		spawnedCar.position = map_to_local(housePos)
+		spawnedCar.global_position = map_to_local(housePos)
 		spawnedCar.spawnPos = spawnedCar.position
-		spawnedCar.bubble = spawnedBubble
+		spawnedCar.destination = spawnedBubble.destination
 
 func SetupStructures():
 	
@@ -149,9 +161,18 @@ func SetupStructures():
 	for structure in structIDs:
 		var structName : String
 		
+		# Sets the structures name
 		match structure:
+			1: 
+				structName = "Library"
 			3:
 				structName = "Cinema"
+			4: 
+				structName = "Park"
+			5:
+				structName = "Restaurant"
+			6: 
+				structName = "Store"
 		
 		var positionTaken = false
 		var randX : int
@@ -181,16 +202,27 @@ func SetupStructures():
 				"Position" : str(gridPos)
 			}
 			buildings.append(gridPos)
-		set_cell(0, Vector2(randX, randY), 3, Vector2.ZERO)
+		set_cell(0, Vector2(randX, randY), structure, Vector2.ZERO)
 		
-		Global.cinemaPos = map_to_local(Vector2(randX, randY + 1))
-		#buildings.append_array([Vector2(randX, randY), Vector2(randX, randY + 1), 
-							#Vector2(randX +1, randY), Vector2(randX +1, randY + 1),
-							#Vector2(randX -1, randY), Vector2(randX -1, randY + 1)])
+		# Set the Global position for the structure
+		match structName:
+			"Library":
+				Global.libraryPos = map_to_local(Vector2(randX, randY + 1))
+			"Cinema":
+				Global.cinemaPos = map_to_local(Vector2(randX, randY + 1))
+			"Park":
+				Global.parkPos = map_to_local(Vector2(randX, randY + 1))
+			"Restaurant":
+				Global.restaurantPos = map_to_local(Vector2(randX, randY + 1))
+			"Store":
+				Global.storePos = map_to_local(Vector2(randX, randY + 1))
 
 func _process(_delta):
 	BuildSystem()
 	HouseManager()
+	DayGridUpdate()
+
+func DayGridUpdate():
 	if Global.day == 1:
 		TimeSystem(start_x, start_y, width, height)
 	elif Global.day == 2:
@@ -202,12 +234,14 @@ func _process(_delta):
 	elif Global.day == 6:
 		TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
 		gridSize = 12
-
+		
 func TimeSystem(posx,posy,fulwidth,fulheight):
 	
 	# Loop through the specified area and set the tile index for each cell
 	for x in range(posx, posx + fulwidth):
 		for y in range(posy, posy + fulheight):
+			# Small time to add an effect
+			await get_tree().create_timer(0.005).timeout
 			if Vector2(x,y) not in buildArea:
 				buildArea.append(Vector2(x,y))
 				set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
@@ -219,22 +253,21 @@ func BuildSystem():
 	# Gets the tile at your mouse coordinates
 	mouseTile = local_to_map(get_global_mouse_position())
 	
+	# Handles rotating tile
 	if Input.is_action_just_pressed("Rotate") and !placing:
 		tileCounter += 1
-
-	#if dic.has(str(mouseTile)):
-		#print(dic[str(mouseTile)])
 	
 	# Sets selected tile type
 	SetTile()
 	
+
 	if tileCounter >= maxtiles:
 		tileCounter = 0
 		
 	# Shows preview tile 
 	set_cell(1, mouseTile, 2, currentTiles[tileCounter], 1)
 	
-	
+	# For setting tiles to be built or demolished
 	if Input.is_action_pressed("Left Click") and !Global.overButton and Global.roadType != "":
 		if Global.roadType == "remove" and mouseTile not in buildings:
 			erase_cell(0, mouseTile)
@@ -253,11 +286,14 @@ func BuildSystem():
 					erase_cell(3, mouseTile)
 			else:
 				touchedBuilding = true
+				
+	# For removing preview tiles
 	if Input.is_action_pressed("Right Click") and !Global.overButton and Global.roadType != "":
 		if mouseTile in roadPlaced:
 					erase_cell(2, mouseTile)
 					var i = roadPlaced.find(mouseTile)
 					roadPlaced.pop_at(i)
+	# For building preview tiles
 	if Input.is_action_just_released("Left Click") and !Global.overButton:
 		for pos in roadPlaced:
 			if Global.currentPrice <= Global.money:
@@ -274,6 +310,7 @@ func BuildSystem():
 		placing = false
 
 func SetTile():
+	# Sets tile based on roadtype selected
 	match Global.roadType:
 		"straigth":
 			maxtiles = straigthTiles.size()

@@ -1,6 +1,12 @@
 extends Node
 
+# Variables that store the position of each structure
+var libraryPos : Vector2
 var cinemaPos : Vector2
+var parkPos : Vector2
+var restaurantPos : Vector2
+var storePos : Vector2
+
 
 # What road your holding
 var roadType : String
@@ -15,9 +21,10 @@ var bubbleTimer : int = 60
 
 # Start Stats
 var day : int = 1
-var money : int = 200
+var money : int = 100000
 var currentPrice : int = 0
 
+# Handles pausing the game
 func _process(_delta):
 	if time == "play":
 		carSpeed = 30

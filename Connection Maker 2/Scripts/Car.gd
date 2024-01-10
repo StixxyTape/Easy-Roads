@@ -6,7 +6,7 @@ var curScale = get_scale()
 
 @onready var sprite : Sprite2D = $Icon
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
-@onready var tileMap : TileMap = $".."
+@onready var tileMap : TileMap = $"../"
 
 # A list which stores all the atlas coordinates of road tiles start house
 var adjectedTiles : Array = [Vector2(0, 6), Vector2(1, 6), Vector2(2, 6), Vector2(3, 6)]
@@ -14,10 +14,12 @@ var adjectedTilesPos : Array
 var adjectedTilePlaced : bool
 
 # variable for the set bubble
-var bubble : TextureProgressBar
+var destination : Vector2
 
-func _ready():
+func _ready():	
+	# Sets the car to be invisible until it leaves the house
 	visible = false
+	# Sets the car sprite to a random variation
 	sprite.frame = randi_range(0,3)
 	
 	# Make sure to not await during _ready.
@@ -27,7 +29,8 @@ func actor_setup():
 	# Wait for the first physics frame so the NavigationServer can sync.
 	await get_tree().physics_frame
 	# Now that the navigation map is no longer empty, set the movement target.
-	set_movement_target(Global.cinemaPos)
+	set_movement_target(destination)
+	
 	# Set rotation to be flat
 	rotation = 0
 
@@ -38,11 +41,13 @@ func _physics_process(_delta):
 	houseCord = tileMap.local_to_map(spawnPos)
 	adjectedTilesPos = [houseCord + Vector2(1,0), houseCord - Vector2(1,0), houseCord + Vector2(0,1), houseCord - Vector2(0,1)]
 	
+	# Variables for controlling car offset
 	var currentAgentPos: Vector2 = global_position
 	var nextPathPos: Vector2 = navAgent.get_next_path_position()
 	var nextTilePos : Vector2 = tileMap.local_to_map(nextPathPos)
 	var carTilePos : Vector2 = tileMap.local_to_map(global_position)
 	
+	# Handles placing a tile to denote which side the car leaves the house from
 	if carTilePos in adjectedTilesPos and !adjectedTilePlaced:
 		var i = adjectedTilesPos.find(carTilePos)
 		eraseStartPoints()
@@ -57,6 +62,7 @@ func _physics_process(_delta):
 		adjectedTilePlaced = true
 		visible = true
 	
+	# Handles the offset
 	if nextTilePos.x > carTilePos.x:
 		set_scale(Vector2(curScale.x, curScale.y))
 		sprite.offset.y = 1
@@ -64,19 +70,22 @@ func _physics_process(_delta):
 		set_scale(Vector2(curScale.x, -curScale.y))
 		sprite.offset.y = -5
 	
-	#print(global_position.distance_to(nextPathPos))
 	# Only look at the next path position if you are able to reach the destination
 	if navAgent.is_target_reachable():
 		look_at(nextPathPos)
-
+	
+	# This is for getting the path ahead of the car
+	#NavigationServer2D.map_get_path(get_world_2d().get_navigation_map(), global_position, navAgent.target_position, false)
+	
 	# If reached destination, don't run the rest of this code
 	if navAgent.is_navigation_finished():
 		Global.money += 20
 		adjectedTilePlaced = false
 		visible = false
 		position = spawnPos
-		set_movement_target(Global.cinemaPos)
+		set_movement_target(destination)
 		return
+	# If destination is not reachable and your position is not where you spawned, respawn
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
 		adjectedTilePlaced = false
 		visible = false
