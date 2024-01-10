@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://cjs7l4lexk18c"]
+[gd_scene load_steps=25 format=3 uid="uid://cjs7l4lexk18c"]
 
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_2omd3"]
 [ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
@@ -19,17 +19,45 @@ region = Rect2(96, 0, 16, 16)
 atlas = ExtResource("2_pv2pt")
 region = Rect2(0, 128, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqyph"]
+atlas = ExtResource("1_bl377")
+region = Rect2(360, 8, 160, 72)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7lfah"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 22
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqk31"]
 atlas = ExtResource("2_pv2pt")
 region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rk3or"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 22
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mo3yr"]
 atlas = ExtResource("2_pv2pt")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="LabelSettings" id="LabelSettings_2faff"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 22
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ssi8q"]
 atlas = ExtResource("2_pv2pt")
 region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="LabelSettings" id="LabelSettings_62b02"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 22
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_54bfg"]
 atlas = ExtResource("2_pv2pt")
@@ -112,6 +140,7 @@ scale = Vector2(0.8, 0.8)
 texture_normal = SubResource("AtlasTexture_syo7a")
 script = ExtResource("2_ub84x")
 type = "tjunction"
+price = 25
 
 [node name="TextureRect" type="TextureRect" parent="Tjunction"]
 layout_mode = 1
@@ -127,6 +156,41 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_ms0bv")
+
+[node name="Info" type="TextureRect" parent="Tjunction"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.75
+offset_top = -82.5
+offset_right = 65.25
+offset_bottom = -10.5
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="Tjunction/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost:
+$ 25"
+label_settings = SubResource("LabelSettings_7lfah")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RoadTurn" type="TextureButton" parent="."]
 anchors_preset = 7
@@ -144,6 +208,7 @@ scale = Vector2(0.8, 0.8)
 texture_normal = SubResource("AtlasTexture_syo7a")
 script = ExtResource("2_ub84x")
 type = "turn"
+price = 10
 
 [node name="TextureRect" type="TextureRect" parent="RoadTurn"]
 layout_mode = 1
@@ -159,6 +224,41 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_dqk31")
+
+[node name="Info" type="TextureRect" parent="RoadTurn"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.75
+offset_top = -82.5
+offset_right = 65.25
+offset_bottom = -10.5
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="RoadTurn/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost: 
+$ 10"
+label_settings = SubResource("LabelSettings_rk3or")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="RoadStraight" type="TextureButton" parent="."]
 anchors_preset = 7
@@ -176,6 +276,7 @@ scale = Vector2(0.8, 0.8)
 texture_normal = SubResource("AtlasTexture_syo7a")
 script = ExtResource("2_ub84x")
 type = "straigth"
+price = 10
 
 [node name="TextureRect" type="TextureRect" parent="RoadStraight"]
 layout_mode = 1
@@ -191,6 +292,42 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_mo3yr")
+
+[node name="Info" type="TextureRect" parent="RoadStraight"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.75
+offset_top = -82.5
+offset_right = 65.25
+offset_bottom = -10.5
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="RoadStraight/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost: 
+$ 10
+"
+label_settings = SubResource("LabelSettings_2faff")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Cross" type="TextureButton" parent="."]
 anchors_preset = 7
@@ -208,6 +345,7 @@ scale = Vector2(0.8, 0.8)
 texture_normal = SubResource("AtlasTexture_syo7a")
 script = ExtResource("2_ub84x")
 type = "cross"
+price = 50
 
 [node name="TextureRect" type="TextureRect" parent="Cross"]
 layout_mode = 1
@@ -223,6 +361,41 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_ssi8q")
+
+[node name="Info" type="TextureRect" parent="Cross"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.75
+offset_top = -82.5
+offset_right = 65.25
+offset_bottom = -10.5
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="Cross/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost: 
+$ 50"
+label_settings = SubResource("LabelSettings_62b02")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Roundabout" type="TextureButton" parent="."]
 anchors_preset = 7
@@ -240,6 +413,7 @@ scale = Vector2(0.8, 0.8)
 texture_normal = SubResource("AtlasTexture_syo7a")
 script = ExtResource("2_ub84x")
 type = "roundabout"
+price = 50
 
 [node name="TextureRect" type="TextureRect" parent="Roundabout"]
 layout_mode = 1
@@ -255,6 +429,41 @@ offset_bottom = 32.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_54bfg")
+
+[node name="Info" type="TextureRect" parent="Roundabout"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -94.75
+offset_top = -82.5
+offset_right = 65.25
+offset_bottom = -10.5
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="Roundabout/Info"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost: 
+$ 50"
+label_settings = SubResource("LabelSettings_62b02")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="InfoBoard" type="TextureRect" parent="."]
 anchors_preset = 1

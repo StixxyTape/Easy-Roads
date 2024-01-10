@@ -4,7 +4,6 @@ var spawnPos : Vector2
 var houseCord : Vector2
 var curScale = get_scale()
 
-
 @onready var sprite : Sprite2D = $Icon
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
 @onready var tileMap : TileMap = $".."
@@ -55,8 +54,8 @@ func _physics_process(_delta):
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[2])
 		elif houseCord.y > adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[1])
-		visible = true
 		adjectedTilePlaced = true
+		visible = true
 	
 	if nextTilePos.x > carTilePos.x:
 		set_scale(Vector2(curScale.x, curScale.y))
@@ -72,8 +71,11 @@ func _physics_process(_delta):
 
 	# If reached destination, don't run the rest of this code
 	if navAgent.is_navigation_finished():
-		bubble.queue_free()
-		queue_free()
+		Global.money += 20
+		adjectedTilePlaced = false
+		visible = false
+		position = spawnPos
+		set_movement_target(Global.cinemaPos)
 		return
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
 		adjectedTilePlaced = false

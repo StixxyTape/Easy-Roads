@@ -260,11 +260,15 @@ func BuildSystem():
 					roadPlaced.pop_at(i)
 	if Input.is_action_just_released("Left Click") and !Global.overButton:
 		for pos in roadPlaced:
+			if Global.currentPrice <= Global.money:
 				set_cell(0, pos, 2, currentTiles[tileCounter])
 				dic[str(pos)] = {
 					"Type" : "Road",
 					"Position" : str(pos)
 					}
+				Global.money -= Global.currentPrice
+			else:
+				erase_cell(2, pos)
 		roadPlaced = []
 		touchedBuilding = false
 		placing = false

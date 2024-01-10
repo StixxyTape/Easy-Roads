@@ -8,18 +8,15 @@ var overButton : bool
 
 # Text of the timers state
 var time : String = "play"
-var carSpeed : float = 30
+var carSpeed : float = 35
 
 # Timer for how long it takes bubbles to fill up
 var bubbleTimer : int = 60
 
 # Start Stats
 var day : int = 1
-var money : int = 100
-
-func _ready():
-	pass # Replace with function body.
-
+var money : int = 200
+var currentPrice : int = 0
 
 func _process(_delta):
 	if time == "play":

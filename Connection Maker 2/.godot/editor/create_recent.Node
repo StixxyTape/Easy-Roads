@@ -1,9 +1,9 @@
+Label
 TextureRect
 TextureButton
 Sprite2D
 AnimationPlayer
 Marker2D
-Label
 Button
 Control
 CanvasLayer
