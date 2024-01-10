@@ -1,7 +1,8 @@
+Sprite2D
+Marker2D
 Label
 TextureButton
 Button
 TextureRect
 Control
-Sprite2D
 CanvasLayer

@@ -40,6 +40,9 @@ var currentTiles : Array
 var roadPlaced : Array[Vector2]
 var buildings : Array[Vector2]
 var placing : bool
+var touchedBuilding : bool
+var lastTilePos : Vector2
+var touchedBuildingPos : Vector2
 
 var spawningHouse : bool = true
 
@@ -103,6 +106,7 @@ func HouseManager():
 	if spawningHouse == true:
 		spawningHouse = false
 		await get_tree().create_timer(houseSpawnCooldown).timeout
+		houseSpawnCooldown = 50
 		housePos = SpawnHouse()
 		spawningHouse = true
 	
@@ -209,9 +213,10 @@ func BuildSystem():
 		if Global.roadType == "remove" and mouseTile not in buildings:
 			erase_cell(0, mouseTile)
 			erase_cell(2, mouseTile)
+			erase_cell(3, mouseTile)
 		else:
 			placing = true
-			if mouseTile not in buildings:
+			if mouseTile not in buildings and !touchedBuilding:
 				if mouseTile not in roadPlaced:
 					roadPlaced.append(mouseTile)
 					dic[str(mouseTile)] = {
@@ -219,7 +224,9 @@ func BuildSystem():
 						"Position" : str(mouseTile)
 						}
 					set_cell(2, mouseTile, 2, currentTiles[tileCounter], 1)
-					
+					erase_cell(3, mouseTile)
+			else:
+				touchedBuilding = true
 	if Input.is_action_pressed("Right Click") and !Global.overButton and Global.roadType != "":
 		if mouseTile in roadPlaced:
 					erase_cell(2, mouseTile)
@@ -232,8 +239,8 @@ func BuildSystem():
 					"Type" : "Road",
 					"Position" : str(pos)
 					}
-				
 		roadPlaced = []
+		touchedBuilding = false
 		placing = false
 
 func SetTile():
