@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cjs7l4lexk18c"]
+[gd_scene load_steps=20 format=3 uid="uid://cjs7l4lexk18c"]
 
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="1_2omd3"]
 [ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
 [ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="2_pv2pt"]
 [ext_resource type="Script" path="res://Scripts/HoverState.gd" id="2_ub84x"]
@@ -38,6 +39,12 @@ region = Rect2(32, 64, 16, 16)
 atlas = ExtResource("1_bl377")
 region = Rect2(648, 0, 192, 184)
 
+[sub_resource type="LabelSettings" id="LabelSettings_fklyv"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 35
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_yor5i"]
 atlas = ExtResource("1_bl377")
 region = Rect2(552, 128, 40, 40)
@@ -55,6 +62,7 @@ atlas = ExtResource("1_bl377")
 region = Rect2(552, 240, 80, 80)
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_2omd3")
 
 [node name="Remove" type="TextureButton" parent="."]
 anchors_preset = 7
@@ -307,11 +315,9 @@ offset_right = 72.0
 offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
-theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
-theme_override_fonts/font = ExtResource("4_e55im")
-theme_override_font_sizes/font_size = 30
 text = "$ 150.0K
 "
+label_settings = SubResource("LabelSettings_fklyv")
 horizontal_alignment = 1
 vertical_alignment = 1
 

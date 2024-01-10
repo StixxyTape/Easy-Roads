@@ -1,28 +1,26 @@
 extends CharacterBody2D
 
-# Speed
-var speed : float = 20.0
 var spawnPos : Vector2
 var houseCord : Vector2
 var curScale = get_scale()
 
+
 @onready var sprite : Sprite2D = $Icon
-@onready var top : Marker2D = $Top
-@onready var bottem : Marker2D = $Bottom
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
-@onready var tileMap : TileMap = $"../.."
+@onready var tileMap : TileMap = $".."
 
 # A list which stores all the atlas coordinates of road tiles start house
 var adjectedTiles : Array = [Vector2(0, 6), Vector2(1, 6), Vector2(2, 6), Vector2(3, 6)]
 var adjectedTilesPos : Array
 var adjectedTilePlaced : bool
 
+# variable for the set bubble
+var bubble : TextureProgressBar
+
 func _ready():
-	houseCord = tileMap.local_to_map(global_position)
-	position = tileMap.map_to_local(houseCord)
-	adjectedTilesPos.append_array([houseCord + Vector2(1,1), houseCord - Vector2(1,-1), houseCord + Vector2(0,2), houseCord])
-	
+	visible = false
 	sprite.frame = randi_range(0,3)
+	
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
 
@@ -34,14 +32,20 @@ func actor_setup():
 	# Set rotation to be flat
 	rotation = 0
 	
+	bubble.max_value = int(position.distance_to(Global.cinemaPos) / 3)
+	
 func set_movement_target(movement_target: Vector2):
 	navAgent.target_position = movement_target
 
 func _physics_process(_delta):
+	houseCord = tileMap.local_to_map(spawnPos)
+	adjectedTilesPos = [houseCord + Vector2(1,0), houseCord - Vector2(1,0), houseCord + Vector2(0,1), houseCord - Vector2(0,1)]
+	
 	var currentAgentPos: Vector2 = global_position
 	var nextPathPos: Vector2 = navAgent.get_next_path_position()
 	var nextTilePos : Vector2 = tileMap.local_to_map(nextPathPos)
 	var carTilePos : Vector2 = tileMap.local_to_map(global_position)
+	
 	if carTilePos in adjectedTilesPos and !adjectedTilePlaced:
 		var i = adjectedTilesPos.find(carTilePos)
 		eraseStartPoints()
@@ -51,14 +55,15 @@ func _physics_process(_delta):
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[0])
 		elif houseCord.y < adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[2])
-		elif houseCord.y == adjectedTilesPos[i].y:
+		elif houseCord.y > adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[1])
+		visible = true
 		adjectedTilePlaced = true
 	
 	if nextTilePos.x > carTilePos.x:
 		set_scale(Vector2(curScale.x, curScale.y))
 		sprite.offset.y = 1
-	else:
+	elif nextTilePos.x < carTilePos.x:
 		set_scale(Vector2(curScale.x, -curScale.y))
 		sprite.offset.y = -5
 	
@@ -69,14 +74,16 @@ func _physics_process(_delta):
 
 	# If reached destination, don't run the rest of this code
 	if navAgent.is_navigation_finished():
-		get_parent().queue_free()
+		bubble.queue_free()
+		queue_free()
 		return
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
 		adjectedTilePlaced = false
+		visible = false
 		position = spawnPos
 	
 	# Move towards next position in path * speed
-	velocity = currentAgentPos.direction_to(nextPathPos) * speed
+	velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed
 	move_and_slide()
 
 func eraseStartPoints():

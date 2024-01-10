@@ -1,3 +1,9 @@
 res://Scenes/main.tscn
 res://Scenes/ui.tscn
 res://Scenes/car.tscn
+res://Scripts/Car.gd
+res://Scripts/Global.gd
+res://Scripts/UI.gd
+res://Scenes/bubble.tscn
+res://Scripts/GridSystem.gd
+res://Scenes/bubble.gd

@@ -47,10 +47,9 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 5
+var houseSpawnCooldown : int = 10
 
 func _ready():
-	
 	SetupStructures()
 	
 	# For each x coordinate
@@ -106,7 +105,6 @@ func HouseManager():
 	if spawningHouse == true:
 		spawningHouse = false
 		await get_tree().create_timer(houseSpawnCooldown).timeout
-		houseSpawnCooldown = 50
 		housePos = SpawnHouse()
 		spawningHouse = true
 	
@@ -114,16 +112,16 @@ func HouseManager():
 	if housePos:
 		var spawnedBubble = bubble.instantiate()
 		spawnedBubble.position = map_to_local(housePos)
-		spawnedBubble.position.y -= 20
+		spawnedBubble.position.y -= 25
 		spawnedBubble.position.x -= 8
 		add_child(spawnedBubble)
 		
 		var spawnedCar = car.instantiate()
-		spawnedBubble.add_child(spawnedCar)
-		spawnedCar.global_position = map_to_local(housePos)
+		add_child(spawnedCar)
+		spawnedCar.position = map_to_local(housePos)
 		spawnedCar.spawnPos = spawnedCar.position
-	
-	
+		spawnedCar.bubble = spawnedBubble
+
 func SetupStructures():
 	
 	# To ensure there is atleast a one tile gap between structures
