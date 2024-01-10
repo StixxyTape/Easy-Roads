@@ -16,7 +16,7 @@ func _process(_delta):
 func Countdown():
 	count = true
 	value = time
-	print(max_value)
+	max_value = maxTime
 	
 	while time < maxTime and count:
 		await get_tree().create_timer(1).timeout

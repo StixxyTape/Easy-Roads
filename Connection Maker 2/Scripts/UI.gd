@@ -22,7 +22,7 @@ func _process(_delta):
 		Global.day += 1
 		hour = 0
 	
-	if minute == 60:
+	if minute >= 60:
 		hour += 1
 		minute = 0
 	
@@ -47,5 +47,5 @@ func _process(_delta):
 
 func timeCounting():
 	while Global.time == "play":
-		minute += 12
-		await  get_tree().create_timer(1).timeout
+		minute += randi_range(10,15)
+		await  get_tree().create_timer(0.5).timeout

@@ -7,3 +7,4 @@ res://Scripts/UI.gd
 res://Scenes/bubble.tscn
 res://Scripts/GridSystem.gd
 res://Scenes/bubble.gd
+res://Scripts/Camera.gd

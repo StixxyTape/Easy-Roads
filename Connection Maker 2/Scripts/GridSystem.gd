@@ -2,6 +2,14 @@ extends TileMap
 
 # How big the grid is e.g 4x4
 var gridSize : int = 5
+
+# Define the area in tile coordinates
+var start_x = -14
+var start_y = -7
+var width = 28
+var height = 14
+var buildArea : Array
+
 # Dictionary for storing data of all tiles
 var dic : Dictionary = {}
 # A counter for checking which tile you have selected (Obsolete with UI)
@@ -47,16 +55,16 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 10
+var houseSpawnCooldown : int = 5
 
 func _ready():
 	SetupStructures()
 	
-	# For each x coordinate
-	for x in gridSize:
-		# For each y coordinate
-		for y in gridSize:
-			pass
+	# Loop through the specified area and set the tile index for each cell
+	for x in range(start_x, start_x + width):
+		for y in range(start_y, start_y + height):
+			buildArea.append(Vector2(x,y))
+			set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
 
 func SpawnHouse():
 	var positionTaken = false
@@ -72,7 +80,7 @@ func SpawnHouse():
 	]
 	
 	while true:
-		randX = randi_range(-gridSize, gridSize)
+		randX = randi_range(-gridSize -6, gridSize +6)
 		randY = randi_range(-gridSize, gridSize)
 		
 		positionTaken = false
@@ -183,6 +191,26 @@ func SetupStructures():
 func _process(_delta):
 	BuildSystem()
 	HouseManager()
+	if Global.day == 1:
+		TimeSystem(start_x, start_y, width, height)
+	elif Global.day == 2:
+		TimeSystem(start_x -2, start_y -2, width + 4, height + 4)
+		gridSize = 8
+	elif Global.day == 4:
+		TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
+		gridSize = 10
+	elif Global.day == 6:
+		TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
+		gridSize = 12
+
+func TimeSystem(posx,posy,fulwidth,fulheight):
+	
+	# Loop through the specified area and set the tile index for each cell
+	for x in range(posx, posx + fulwidth):
+		for y in range(posy, posy + fulheight):
+			if Vector2(x,y) not in buildArea:
+				buildArea.append(Vector2(x,y))
+				set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
 
 func BuildSystem():
 	# Erase the preview tile
@@ -214,7 +242,7 @@ func BuildSystem():
 			erase_cell(3, mouseTile)
 		else:
 			placing = true
-			if mouseTile not in buildings and !touchedBuilding:
+			if mouseTile not in buildings and !touchedBuilding and mouseTile in buildArea:
 				if mouseTile not in roadPlaced:
 					roadPlaced.append(mouseTile)
 					dic[str(mouseTile)] = {

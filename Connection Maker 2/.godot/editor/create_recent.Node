@@ -1,9 +1,9 @@
-AnimationPlayer
+TextureRect
+TextureButton
 Sprite2D
+AnimationPlayer
 Marker2D
 Label
-TextureButton
 Button
-TextureRect
 Control
 CanvasLayer

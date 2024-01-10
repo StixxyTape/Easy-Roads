@@ -31,9 +31,7 @@ func actor_setup():
 	set_movement_target(Global.cinemaPos)
 	# Set rotation to be flat
 	rotation = 0
-	
-	bubble.max_value = int(position.distance_to(Global.cinemaPos) / 3)
-	
+
 func set_movement_target(movement_target: Vector2):
 	navAgent.target_position = movement_target
 

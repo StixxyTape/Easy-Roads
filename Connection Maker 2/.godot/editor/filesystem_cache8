@@ -1,8 +1,9 @@
 ea4bc82a6ad023ab7ee23ee620429895
 ::res://::1704878511
 icon.svg::CompressedTexture2D::481858224256157837::1704747864::1704749680::1::::<><>::
-::res://Art/::1704842701
+::res://Art/::1704893649
 Cinema.png::CompressedTexture2D::992585659984520485::1704842701::1704842701::1::::<><>::
+Ground.png::CompressedTexture2D::7443080157343531306::1704893649::1704893651::1::::<><>::
 TileSet.png::CompressedTexture2D::3700331843568886407::1704748994::1704795668::1::::<><>::
 ::res://Art/Bubbles/::1704842728
 BubbleFill.png::CompressedTexture2D::3974368168990032804::1704842701::1704842728::1::::<><>::
@@ -14,15 +15,16 @@ Cinema.png::CompressedTexture2D::992585659984520485::1704748994::1704795620::1::
 UI.png::CompressedTexture2D::3456751574493229813::1704823545::1704823551::1::::<><>::
 ::res://Fonts/::1704822142
 Pink and Crimson.otf::FontFile::5259612539975151168::1704483583::1704822142::1::::<><>::
-::res://Scenes/::1704857469
-bubble.gd::GDScript::-1::1704844619::0::1::::<>TextureProgressBar<>::
-bubble.tscn::PackedScene::3058478825827340118::1704849955::0::1::::<><>::uid://ba0bar73eu2dl::::res://Art/Bubbles/ProgressBubble.png<>uid://dxmjbqd06u5v1::::res://Art/Bubbles/CinemaBubble.png<>uid://bwvhi7eemecb1::::res://Art/Bubbles/BubbleFill.png<>res://Scenes/bubble.gd
-car.tscn::PackedScene::4491931716539641924::1704857325::0::1::::<><>::res://Scripts/Car.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
-main.tscn::PackedScene::2037836141704177403::1704857469::0::1::::<><>::uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>uid://oe20gmpsemvl::::res://Art/Cinema.png<>res://Scripts/GridSystem.gd<>uid://cjs7l4lexk18c::::res://Scenes/ui.tscn
-ui.tscn::PackedScene::5443663887585954636::1704857325::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/HoverState.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/TimeButton.gd
-::res://Scripts/::1704856749
-Car.gd::GDScript::-1::1704856748::0::1::::<>CharacterBody2D<>::
-Global.gd::GDScript::-1::1704843460::0::1::::<>Node<>::
-GridSystem.gd::GDScript::-1::1704855766::0::1::::<>TileMap<>::
+::res://Scenes/::1704893451
+bubble.gd::GDScript::-1::1704891848::0::1::::<>TextureProgressBar<>::
+bubble.tscn::PackedScene::3058478825827340118::1704893451::0::1::::<><>::uid://ba0bar73eu2dl::::res://Art/Bubbles/ProgressBubble.png<>uid://dxmjbqd06u5v1::::res://Art/Bubbles/CinemaBubble.png<>uid://bwvhi7eemecb1::::res://Art/Bubbles/BubbleFill.png<>res://Scenes/bubble.gd
+car.tscn::PackedScene::4491931716539641924::1704893451::0::1::::<><>::res://Scripts/Car.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
+main.tscn::PackedScene::2037836141704177403::1704893451::0::1::::<><>::uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>uid://oe20gmpsemvl::::res://Art/Cinema.png<>res://Scripts/GridSystem.gd<>uid://cjs7l4lexk18c::::res://Scenes/ui.tscn
+ui.tscn::PackedScene::5443663887585954636::1704893451::0::1::::<><>::res://Scripts/UI.gd<>uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/HoverState.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/TimeButton.gd
+::res://Scripts/::1704892749
+Car.gd::GDScript::-1::1704892571::0::1::::<>CharacterBody2D<>::
+Global.gd::GDScript::-1::1704887350::0::1::::<>Node<>::
+GridSystem.gd::GDScript::-1::1704892749::0::1::::<>TileMap<>::
 HoverState.gd::GDScript::-1::1704805986::0::1::::<>TextureButton<>::
+UI.gd::GDScript::-1::1704883872::0::1::::<>CanvasLayer<>::
 TimeButton.gd::GDScript::-1::1704824760::0::1::::<>TextureButton<>::
