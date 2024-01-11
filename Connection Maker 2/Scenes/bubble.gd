@@ -13,8 +13,9 @@ var dangerZone : bool = false
 var count : bool = false
 
 # Sets the type of structure to drive to
-var type : int = randi_range(0, 4)
+var type : int
 var destination : Vector2
+var payedFee : int
 
 # Sets the texture as a new AtlasTexture so other instantiated bubbles don't change aswell
 var atlasTexture : AtlasTexture = AtlasTexture.new()
@@ -26,28 +27,40 @@ func _ready():
 	texture_over.atlas = overTexture
 	texture_over.region = Rect2(0, 0, 16, 16)
 	
+	SetDestination()
+
+func SetDestination():
+	type = randi_range(0,4)
 	match type:
 		0:
 			SetSprite(0, 0)
 			destination = Global.cinemaPos
+			payedFee = 40
 		1:
 			SetSprite(0, 16)
 			destination = Global.restaurantPos
+			payedFee = 40
 		2:
 			SetSprite(0, 32)
 			destination = Global.storePos
+			payedFee = 20
 		3:
 			SetSprite(0, 48)
 			destination = Global.parkPos
+			payedFee = 20
 		4:
 			SetSprite(0, 64)
 			destination = Global.libraryPos
+			payedFee = 30
 
 func SetSprite(x, y):
 	# Change sprite to according destination type
 	texture_over.region = Rect2(x, y, 16, 16)
 		
 func _process(_delta):
+	value = time
+	max_value = maxTime
+	
 	if Global.time == "play" and !count:
 		Countdown()
 	elif Global.time == "stop":
@@ -55,8 +68,6 @@ func _process(_delta):
 
 func Countdown():
 	count = true
-	value = time
-	max_value = maxTime
 	
 	# Keeps track of the time left for the car to reach it's destination
 	while time < maxTime and count:

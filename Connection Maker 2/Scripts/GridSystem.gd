@@ -127,6 +127,7 @@ func HouseManager():
 		spawningHouse = true
 	# Spawn a bubble and car at the house
 	if housePos:
+		
 		# Instantiates bubble with offset
 		var spawnedBubble = bubble.instantiate()
 		spawnedBubble.position = map_to_local(housePos)
@@ -138,7 +139,7 @@ func HouseManager():
 		add_child(spawnedCar)
 		spawnedCar.global_position = map_to_local(housePos)
 		spawnedCar.spawnPos = spawnedCar.position
-		spawnedCar.destination = spawnedBubble.destination
+		spawnedCar.bubble = spawnedBubble
 
 func SetupStructures():
 	

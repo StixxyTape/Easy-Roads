@@ -9,7 +9,8 @@ var obstacle : bool
 
 @onready var sprite : Sprite2D = $Icon
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
-@onready var tileMap : TileMap = $"../"
+@onready var tileMap : TileMap = $".."
+@onready var bubble : TextureProgressBar
 
 # A list which stores all the atlas coordinates of road tiles start house
 var adjectedTiles : Array = [Vector2(0, 6), Vector2(1, 6), Vector2(2, 6), Vector2(3, 6)]
@@ -18,12 +19,17 @@ var adjectedTilePlaced : bool
 
 # variable for the set bubble
 var destination : Vector2
+var payedFee : int 
 
 func _ready():	
 	# Sets the car to be invisible until it leaves the house
 	visible = false
 	# Sets the car sprite to a random variation
 	sprite.frame = randi_range(0,3)
+	
+	await get_tree().create_timer(0.1).timeout
+	destination = bubble.destination
+	payedFee = bubble.payedFee
 	
 	# Make sure to not await during _ready.
 	call_deferred("actor_setup")
@@ -47,6 +53,7 @@ func _physics_process(_delta):
 	# Variables for controlling car offset
 	var currentAgentPos: Vector2 = global_position
 	var nextPathPos: Vector2 = navAgent.get_next_path_position()
+	nextPathPos = navAgent.get_next_path_position()
 	var nextTilePos : Vector2 = tileMap.local_to_map(nextPathPos)
 	var carTilePos : Vector2 = tileMap.local_to_map(global_position)
 	
@@ -80,6 +87,7 @@ func _physics_process(_delta):
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[1])
 		startPos = adjectedTilesPos[i]
 		position = tileMap.map_to_local(startPos)
+		
 		adjectedTilePlaced = true
 		visible = true
 	
@@ -100,10 +108,16 @@ func _physics_process(_delta):
 	
 	# If reached destination, don't run the rest of this code
 	if navAgent.is_navigation_finished():
-		Global.money += 20
+		Global.money += payedFee
 		adjectedTilePlaced = false
 		visible = false
+		bubble.time = 0
 		position = spawnPos
+		
+		bubble.SetDestination()
+		destination = bubble.destination
+		payedFee = bubble.payedFee
+		
 		set_movement_target(destination)
 		return
 	# If destination is not reachable and your position is not where you spawned, respawn
