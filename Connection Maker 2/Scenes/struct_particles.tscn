@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0wfiorhixmab"]
+
+[ext_resource type="Texture2D" uid="uid://c0snlafgfgubs" path="res://Art/Particles/Particle.png" id="1_ped53"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6y2di"]
+lifetime_randomness = 0.5
+emission_shape = 3
+emission_box_extents = Vector3(16, 16, 1)
+particle_flag_disable_z = true
+direction = Vector3(0, 0, 0)
+spread = 180.0
+gravity = Vector3(0, -50, 0)
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+scale_min = 0.1
+scale_max = 0.3
+
+[sub_resource type="Animation" id="Animation_nxa1x"]
+resource_name = "Default"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_e137m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3om4p"]
+_data = {
+"Default": SubResource("Animation_nxa1x"),
+"RESET": SubResource("Animation_e137m")
+}
+
+[node name="StructParticles" type="GPUParticles2D"]
+z_index = 2
+emitting = false
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_6y2di")
+texture = ExtResource("1_ped53")
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Default"
+libraries = {
+"": SubResource("AnimationLibrary_3om4p")
+}

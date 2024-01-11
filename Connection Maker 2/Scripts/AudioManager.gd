@@ -1,0 +1,11 @@
+extends Node
+
+func PlaySound(stream: AudioStream):
+	var streamPlayer = AudioStreamPlayer.new()
+	streamPlayer.stream = stream
+	streamPlayer.finished.connect(RemoveNode.bind(streamPlayer))
+	add_child(streamPlayer)
+	streamPlayer.play()
+
+func RemoveNode(instance: AudioStreamPlayer):
+	instance.queue_free()
