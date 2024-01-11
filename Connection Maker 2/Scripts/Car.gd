@@ -6,11 +6,13 @@ var curScale = get_scale()
 var startPos : Vector2
 var houseCount : Array
 var obstacle : bool
+var traffic : int = 1
 
 @onready var sprite : Sprite2D = $Icon
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
 @onready var tileMap : TileMap = $".."
 @onready var bubble : TextureProgressBar
+@onready var colls : Array[Area2D] = [$Front,$Back]
 
 # A list which stores all the atlas coordinates of road tiles start house
 var adjectedTiles : Array = [Vector2(0, 6), Vector2(1, 6), Vector2(2, 6), Vector2(3, 6)]
@@ -95,9 +97,13 @@ func _physics_process(_delta):
 	if nextTilePos.x > carTilePos.x and nextTilePos != houseCord:
 		set_scale(Vector2(curScale.x, curScale.y))
 		sprite.offset.y = 1
+		for col in colls:
+			col.position.y = 1
 	elif nextTilePos.x < carTilePos.x and nextTilePos != houseCord:
 		set_scale(Vector2(curScale.x, -curScale.y))
 		sprite.offset.y = -5
+		for col in colls:
+			col.position.y = -5
 	
 	# Only look at the next path position if you are able to reach the destination
 	if navAgent.is_target_reachable():
@@ -128,9 +134,18 @@ func _physics_process(_delta):
 	
 	# Move towards next position in path * speed
 	if !obstacle:
-		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed
+		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
 		move_and_slide()
 
 func eraseStartPoints():
 	for pos in adjectedTilesPos:
 		tileMap.erase_cell(3, pos)
+
+func _on_area_2d_area_entered(area):
+	traffic = 0
+	if area.get_parent().position.y < position.y:
+		await get_tree().create_timer(0.5).timeout
+		traffic = 1
+
+func _on_area_2d_area_exited(_area):
+	traffic = 1
