@@ -38,7 +38,7 @@ var emptyTile : Array = [Vector2(0, 1)]
 var houseTiles : Array = [Vector2(7,0), Vector2(8, 0), Vector2(9, 0),
 						 Vector2(10, 0), Vector2(11, 0)]
 # A list which stores all the ID's for structure tiles
-var structIDs : Array = [1, 3, 4, 5, 6]
+var structIDs : Array = [4, 6, 1, 5, 3]
 var mouseTile : Vector2
 
 # Variables that store the scene for the car and bubble
@@ -57,10 +57,15 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 5
+var houseSpawnCooldown : int = 10
+
+# To keep track of the days and structures that have been built
+var passedDays : Array = []
+var structCounter : int
 
 func _ready():
-	SetupStructures()
+	SetupStructure()
+	
 	SetupBuildArea()
 
 func SetupBuildArea():
@@ -134,6 +139,7 @@ func HouseManager():
 		spawnedBubble.position.y -= 25
 		spawnedBubble.position.x -= 8
 		add_child(spawnedBubble)
+		
 		# Instantiates Car
 		var spawnedCar = car.instantiate()
 		add_child(spawnedCar)
@@ -141,7 +147,7 @@ func HouseManager():
 		spawnedCar.spawnPos = spawnedCar.position
 		spawnedCar.bubble = spawnedBubble
 
-func SetupStructures():
+func SetupStructure():
 	
 	# To ensure there is atleast a one tile gap between structures
 	var marginOffsets = [
@@ -157,83 +163,107 @@ func SetupStructures():
 		Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)
 	]
 	
-	for structure in structIDs:
-		var structName : String
-		
-		# Sets the structures name
-		match structure:
-			1: 
-				structName = "Library"
-			3:
-				structName = "Cinema"
-			4: 
-				structName = "Park"
-			5:
-				structName = "Restaurant"
-			6: 
-				structName = "Store"
-		
-		var positionTaken = false
-		var randX : int
-		var randY : int
-		
-		# Keep generating new positions until an available one is found for the current structure
-		while true:
-			randX = randi_range(-gridSize, gridSize)
-			randY = randi_range(-gridSize, gridSize)
+	var structName : String
+	var structure : int
+	
+	# For spawning the structures in order, starting with the cheapest
+	match structCounter:
+		0:
+			structure = structIDs[randi_range(0, 1)]
+			structCounter += 1
+		1:
+			structure = structIDs[0]
+			structCounter += 1
+		2:
+			structure = structIDs[0]
+			structCounter += 1
+		3:
+			structure = structIDs[randi_range(0, 1)]
+			structCounter += 1
+		4: 
+			structure = structIDs[0]
+			structCounter += 1
 			
-			positionTaken = false
-			
-			for offset in marginOffsets:
-				var gridPos = Vector2(randX, randY) + offset
-				if dic.has(str(gridPos)):
-					positionTaken = true
-					break  # Stop checking further, a position is taken
-			
-			if not positionTaken:
-				break  # Found an available position, exit the loop
+	structIDs.remove_at(structIDs.find(structure))
+	
+	# Sets the structures name
+	match structure:
+		1: 
+			structName = "Library"
+		3:
+			structName = "Cinema"
+		4: 
+			structName = "Park"
+		5:
+			structName = "Restaurant"
+		6: 
+			structName = "Store"
+	
+	Global.builtStructs.append(structName)
+	
+	var positionTaken = false
+	var randX : int
+	var randY : int
+	
+	# Keep generating new positions until an available one is found for the current structure
+	while true:
+		randX = randi_range(-gridSize, gridSize)
+		randY = randi_range(-gridSize, gridSize)
 		
-		# Set the tiles as the type at the available position
-		for offset in gridOffsets:
+		positionTaken = false
+		
+		for offset in marginOffsets:
 			var gridPos = Vector2(randX, randY) + offset
-			dic[str(gridPos)] = {
-				"Type" : structName,
-				"Position" : str(gridPos)
-			}
-			buildings.append(gridPos)
-		set_cell(0, Vector2(randX, randY), structure, Vector2.ZERO)
+			if dic.has(str(gridPos)):
+				positionTaken = true
+				break  # Stop checking further, a position is taken
 		
-		# Set the Global position for the structure
-		match structName:
-			"Library":
-				Global.libraryPos = map_to_local(Vector2(randX, randY + 1))
-			"Cinema":
-				Global.cinemaPos = map_to_local(Vector2(randX, randY + 1))
-			"Park":
-				Global.parkPos = map_to_local(Vector2(randX, randY + 1))
-			"Restaurant":
-				Global.restaurantPos = map_to_local(Vector2(randX, randY + 1))
-			"Store":
-				Global.storePos = map_to_local(Vector2(randX, randY + 1))
+		if not positionTaken:
+			break  # Found an available position, exit the loop
+	
+	# Set the tiles as the type at the available position
+	for offset in gridOffsets:
+		var gridPos = Vector2(randX, randY) + offset
+		dic[str(gridPos)] = {
+			"Type" : structName,
+			"Position" : str(gridPos)
+		}
+		buildings.append(gridPos)
+		
+	set_cell(0, Vector2(randX, randY), structure, Vector2.ZERO)
+	
+	# Set the Global position for the structure
+	match structName:
+		"Library":
+			Global.libraryPos = map_to_local(Vector2(randX, randY + 1))
+		"Cinema":
+			Global.cinemaPos = map_to_local(Vector2(randX, randY + 1))
+		"Park":
+			Global.parkPos = map_to_local(Vector2(randX, randY + 1))
+		"Restaurant":
+			Global.restaurantPos = map_to_local(Vector2(randX, randY + 1))
+		"Store":
+			Global.storePos = map_to_local(Vector2(randX, randY + 1))
 
 func _process(_delta):
 	BuildSystem()
 	HouseManager()
 	DayGridUpdate()
-
+	
 func DayGridUpdate():
-	if Global.day == 1:
-		TimeSystem(start_x, start_y, width, height)
-	elif Global.day == 2:
-		TimeSystem(start_x -2, start_y -2, width + 4, height + 4)
-		gridSize = 8
-	elif Global.day == 4:
-		TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
-		gridSize = 10
-	elif Global.day == 6:
-		TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
-		gridSize = 12
-		
+	if Global.day not in passedDays:
+		if Global.day == 1:
+			TimeSystem(start_x, start_y, width, height)
+		elif Global.day == 2:
+			TimeSystem(start_x -2, start_y -2, width + 4, height + 4)
+			gridSize = 8
+		elif Global.day == 4:
+			TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
+			gridSize = 10
+		elif Global.day == 6:
+			TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
+			gridSize = 12
+		passedDays.append(Global.day)
 func TimeSystem(posx,posy,fulwidth,fulheight):
 	
 	# Loop through the specified area and set the tile index for each cell
@@ -244,7 +274,8 @@ func TimeSystem(posx,posy,fulwidth,fulheight):
 			if Vector2(x,y) not in buildArea:
 				buildArea.append(Vector2(x,y))
 				set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
-
+				
+	SetupStructure()
 func BuildSystem():
 	# Erase the preview tile
 	erase_cell(1, mouseTile)

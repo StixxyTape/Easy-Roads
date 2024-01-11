@@ -13,7 +13,7 @@ var dangerZone : bool = false
 var count : bool = false
 
 # Sets the type of structure to drive to
-var type : int
+var type : String
 var destination : Vector2
 var payedFee : int
 
@@ -30,28 +30,29 @@ func _ready():
 	SetDestination()
 
 func SetDestination():
-	type = randi_range(0,4)
+	type = Global.builtStructs.pick_random()
+	
 	match type:
-		0:
-			SetSprite(0, 0)
-			destination = Global.cinemaPos
-			payedFee = 40
-		1:
-			SetSprite(0, 16)
-			destination = Global.restaurantPos
-			payedFee = 40
-		2:
+		"Store":
 			SetSprite(0, 32)
 			destination = Global.storePos
 			payedFee = 20
-		3:
+		"Park":	
 			SetSprite(0, 48)
 			destination = Global.parkPos
 			payedFee = 20
-		4:
+		"Library":
 			SetSprite(0, 64)
 			destination = Global.libraryPos
 			payedFee = 30
+		"Restaurant":
+			SetSprite(0, 16)
+			destination = Global.restaurantPos
+			payedFee = 40
+		"Cinema":
+			SetSprite(0, 0)
+			destination = Global.cinemaPos
+			payedFee = 40
 
 func SetSprite(x, y):
 	# Change sprite to according destination type

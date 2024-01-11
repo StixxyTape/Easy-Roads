@@ -7,6 +7,7 @@ var parkPos : Vector2
 var restaurantPos : Vector2
 var storePos : Vector2
 
+var builtStructs : Array = []
 
 # What road your holding
 var roadType : String
