@@ -1,7 +1,0 @@
-res://Scenes/main.tscn
-res://Scenes/ui.tscn
-res://Scenes/car.tscn
-res://Scenes/bubble.tscn
-res://Scripts/Car.gd
-res://Scripts/GridSystem.gd
-res://Scenes/bubble.gd
