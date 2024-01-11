@@ -125,7 +125,6 @@ func HouseManager():
 		await get_tree().create_timer(houseSpawnCooldown).timeout
 		housePos = SpawnHouse()
 		spawningHouse = true
-	
 	# Spawn a bubble and car at the house
 	if housePos:
 		# Instantiates bubble with offset
@@ -134,7 +133,6 @@ func HouseManager():
 		spawnedBubble.position.y -= 25
 		spawnedBubble.position.x -= 8
 		add_child(spawnedBubble)
-		
 		# Instantiates Car
 		var spawnedCar = car.instantiate()
 		add_child(spawnedCar)

@@ -12,7 +12,7 @@ func _ready():
 	self.mouse_exited.connect(_on_button_exit)
 	self.pressed.connect(_on_button_press)
 	if type != "remove":
-		priceLabel = $Info
+		priceLabel = $"../Cost"
 	
 	if priceLabel:
 		priceLabel.visible = false
@@ -23,22 +23,16 @@ func _process(_delta):
 	
 	if !active and !hover:
 		self_modulate = Color("fff")
-		if priceLabel:
-			priceLabel.visible = false
 
 func _on_button_hovered():
 	if Global.roadType != type:
 		self_modulate = Color("c9c9c9dc")
 		hover = true
 		Global.overButton = true
-	if priceLabel and Global.roadType == type:
-		priceLabel.self_modulate = Color("ffffff6e")
 
 func _on_button_exit():
 	hover = false
 	Global.overButton = false
-	if priceLabel:
-		priceLabel.self_modulate = Color("fff")
 
 func _on_button_press():
 	if active:

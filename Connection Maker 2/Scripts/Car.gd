@@ -3,6 +3,9 @@ extends CharacterBody2D
 var spawnPos : Vector2
 var houseCord : Vector2
 var curScale = get_scale()
+var startPos : Vector2
+var houseCount : Array
+var obstacle : bool
 
 @onready var sprite : Sprite2D = $Icon
 @onready var navAgent : NavigationAgent2D = $NavigationAgent2D
@@ -47,8 +50,24 @@ func _physics_process(_delta):
 	var nextTilePos : Vector2 = tileMap.local_to_map(nextPathPos)
 	var carTilePos : Vector2 = tileMap.local_to_map(global_position)
 	
+	if navAgent.is_target_reachable():
+		var paths = navAgent.get_current_navigation_path()
+		houseCount = []
+		for path in paths:
+			var tilePos = tileMap.local_to_map(path)
+			var atlesPos = tileMap.get_cell_atlas_coords(0,tilePos)
+			if atlesPos == Vector2i(7,0) or atlesPos == Vector2i(8,0) or atlesPos == Vector2i(9,0) or atlesPos == Vector2i(10,0) or atlesPos == Vector2i(11,0):
+				if tilePos not in houseCount:
+					houseCount.append(tilePos)
+		
+		if len(houseCount) > 1:
+			obstacle = true
+		else :
+			houseCount = []
+			obstacle = false
+	
 	# Handles placing a tile to denote which side the car leaves the house from
-	if carTilePos in adjectedTilesPos and !adjectedTilePlaced:
+	if carTilePos in adjectedTilesPos and !adjectedTilePlaced and navAgent.is_target_reachable():
 		var i = adjectedTilesPos.find(carTilePos)
 		eraseStartPoints()
 		if houseCord.x < adjectedTilesPos[i].x:
@@ -59,14 +78,16 @@ func _physics_process(_delta):
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[2])
 		elif houseCord.y > adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[1])
+		startPos = adjectedTilesPos[i]
+		position = tileMap.map_to_local(startPos)
 		adjectedTilePlaced = true
 		visible = true
 	
 	# Handles the offset
-	if nextTilePos.x > carTilePos.x:
+	if nextTilePos.x > carTilePos.x and nextTilePos != houseCord:
 		set_scale(Vector2(curScale.x, curScale.y))
 		sprite.offset.y = 1
-	elif nextTilePos.x < carTilePos.x:
+	elif nextTilePos.x < carTilePos.x and nextTilePos != houseCord:
 		set_scale(Vector2(curScale.x, -curScale.y))
 		sprite.offset.y = -5
 	
@@ -92,8 +113,9 @@ func _physics_process(_delta):
 		position = spawnPos
 	
 	# Move towards next position in path * speed
-	velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed
-	move_and_slide()
+	if !obstacle:
+		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed
+		move_and_slide()
 
 func eraseStartPoints():
 	for pos in adjectedTilesPos:

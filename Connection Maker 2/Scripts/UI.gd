@@ -10,6 +10,7 @@ var count : bool = false
 @onready var timeLabel : Label = $InfoBoard/Time
 @onready var dayLabel : Label = $InfoBoard/Day
 @onready var moneyLabel : Label = $InfoBoard/Money
+@onready var priceLabel : Label = $Cost/Label
 
 func _process(_delta):
 	if Global.time == "play" and !count:
@@ -44,6 +45,7 @@ func _process(_delta):
 	dayLabel.text = str("Day ", day_text)
 	timeLabel.text = str(hour_text, ":", minute_text)
 	moneyLabel.text = str("$ ", Global.money)
+	priceLabel.text = str("Cost:\n", Global.currentPrice)
 
 func timeCounting():
 	while Global.time == "play":
