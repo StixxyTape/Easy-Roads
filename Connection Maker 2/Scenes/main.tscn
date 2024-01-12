@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cwdlhhjv2uxy2"]
+[gd_scene load_steps=47 format=3 uid="uid://cwdlhhjv2uxy2"]
 
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="1_3iegl"]
 [ext_resource type="Texture2D" uid="uid://debqpb2urr8ck" path="res://Art/Ground.png" id="1_hbcj1"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://dhbxupkwup0e4" path="res://Art/Structures/Restaurant.png" id="7_0dlpc"]
 [ext_resource type="Texture2D" uid="uid://eov80m2kxj8k" path="res://Art/Structures/Store.png" id="8_nm0dl"]
 [ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="11_1ckhv"]
-[ext_resource type="AudioStream" uid="uid://crxjy5yns5l2a" path="res://Music/Main_theme.ogg" id="12_4o58r"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_1jivu"]
 
@@ -256,6 +255,44 @@ sources/4 = SubResource("TileSetAtlasSource_l8pnk")
 sources/5 = SubResource("TileSetAtlasSource_gngip")
 sources/6 = SubResource("TileSetAtlasSource_ykala")
 
+[sub_resource type="Animation" id="Animation_2l4gd"]
+resource_name = "gameOver"
+length = 0.4
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.15, 0.2, 0.25, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-2, -2), Vector2(2, 2), Vector2(0, 0), Vector2(-2, 0), Vector2(2, -2)]
+}
+
+[sub_resource type="Animation" id="Animation_p65ef"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c3ex3"]
+_data = {
+"RESET": SubResource("Animation_p65ef"),
+"gameOver": SubResource("Animation_2l4gd")
+}
+
 [node name="Main" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -317,6 +354,7 @@ script = ExtResource("3_q74ai")
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("11_1ckhv")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("12_4o58r")
-autoplay = true
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c3ex3")
+}

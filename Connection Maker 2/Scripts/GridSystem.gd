@@ -17,26 +17,26 @@ var tileCounter : int = 0
 var maxtiles : int = 0
 
 # A list which stores all the atlas coordinates of road tiles straights
-var straigthTiles : Array = [Vector2(0, 0), Vector2(1, 0)]
+var straigthTiles : Array = [Vector2i(0, 0), Vector2i(1, 0)]
 
 # A list which stores all the atlas coordinates of road tiles turns
-var turnTiles : Array = [Vector2(0, 2), Vector2(1, 2), Vector2(3, 2), Vector2(2, 2)]
+var turnTiles : Array = [Vector2i(0, 2), Vector2i(1, 2), Vector2i(3, 2), Vector2i(2, 2)]
 
 # A list which stores all the atlas coordinates of road tiles T-junction
-var tTiles : Array = [Vector2(0, 8), Vector2(6, 8), Vector2(2, 8), Vector2(4, 8)]
+var tTiles : Array = [Vector2i(0, 8), Vector2i(6, 8), Vector2i(2, 8), Vector2i(4, 8)]
 
 # A list which stores all the atlas coordinates of road tiles cross
-var crossTile : Array = [Vector2(0, 4)]
+var crossTile : Array = [Vector2i(0, 4)]
 
 # A list which stores all the atlas coordinates of road tiles roundabout
-var roundaboutTile : Array = [Vector2(2, 4)]
+var roundaboutTile : Array = [Vector2i(2, 4)]
 
 # A list which stores all the atlas coordinates of empty tile
-var emptyTile : Array = [Vector2(0, 1)]
+var emptyTile : Array = [Vector2i(0, 1)]
 
 # A list which stores all the atlas coordinates of house tiles
-var houseTiles : Array = [Vector2(7,0), Vector2(8, 0), Vector2(9, 0),
-						 Vector2(10, 0), Vector2(11, 0)]
+var houseTiles : Array = [Vector2i(7,0), Vector2i(8, 0), Vector2i(9, 0),
+						 Vector2i(10, 0), Vector2i(11, 0)]
 # A list which stores all the ID's for structure tiles
 var structIDs : Array = [4, 6, 1, 5, 3]
 var mouseTile : Vector2
@@ -122,7 +122,8 @@ func HouseManager():
 	if spawningHouse == true:
 		spawningHouse = false
 		await get_tree().create_timer(houseSpawnCooldown).timeout
-		housePos = SpawnHouse()
+		if Global.time == "play":
+			housePos = SpawnHouse()
 		spawningHouse = true
 	# Spawn a bubble and car at the house
 	if housePos:
@@ -313,7 +314,7 @@ func BuildSystem():
 		else:
 			placing = true
 			if mouseTile not in buildings and !touchedBuilding and mouseTile in buildArea:
-				if mouseTile not in roadPlaced:
+				if mouseTile not in roadPlaced and currentTiles[tileCounter] != get_cell_atlas_coords(0,mouseTile):
 					roadPlaced.append(mouseTile)
 					dic[str(mouseTile)] = {
 						"Type" : "Road",

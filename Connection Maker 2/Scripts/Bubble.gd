@@ -1,6 +1,7 @@
 extends TextureProgressBar
 
 @onready var anim : AnimationPlayer = $AnimationPlayer
+@onready var camAnim : AnimationPlayer = $"../../../AnimationPlayer"
 
 # Variables for the timer
 var maxTime : int = Global.bubbleTimer
@@ -20,6 +21,8 @@ var payedFee : int
 # Sets the texture as a new AtlasTexture so other instantiated bubbles don't change aswell
 var atlasTexture : AtlasTexture = AtlasTexture.new()
 var overTexture : CompressedTexture2D = preload("res://Art/Bubbles/Bubbles.png")
+
+var loseSound : AudioStreamWAV = preload("res://Sounds/sfx_sounds_interaction13.wav")
 
 func _ready():
 	# Setting up the texture for the bubble
@@ -67,9 +70,10 @@ func _process(_delta):
 	elif Global.time == "stop":
 		count = false
 	
-	if time >= maxTime:
+	if time >= maxTime - 8 and !Global.gameOver:
 		GameOver()
-		
+		Global.gameOver = true
+	
 func Countdown():
 	count = true
 	
@@ -79,12 +83,14 @@ func Countdown():
 		if count:
 			time += 1
 			
-			if time > maxTime - 10 and !dangerZone:
+			if time > maxTime - 18 and !dangerZone:
 				anim.play("Danger")
 				dangerZone = true
 			
 			value = time
 
 func GameOver():
-	Global.Reset()
-	get_tree().reload_current_scene()
+	AudioManager.PlaySound(loseSound)
+	camAnim.play("gameOver")
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://Scenes/gameOver.tscn")

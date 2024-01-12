@@ -1,4 +1,7 @@
 AnimationPlayer
+AudioStreamPlayer2D
+TileMap
+Label
+CanvasLayer
 AnimationTree
 Sprite2D
-AudioStreamPlayer2D

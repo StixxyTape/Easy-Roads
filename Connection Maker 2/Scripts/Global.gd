@@ -24,6 +24,7 @@ var bubbleTimer : int = 60
 var day : int = 1
 var money : int = 100000
 var currentPrice : int = 0
+var gameOver : bool
 
 func Reset():
 	builtStructs = []
