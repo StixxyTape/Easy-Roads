@@ -2,6 +2,7 @@ extends TextureButton
 
 @export var action : String
 var currentScale = get_scale()
+var selectSound = preload("res://Sounds/Menu.wav")
 
 func _ready():
 	self.mouse_entered.connect(_on_button_hovered)
@@ -23,6 +24,8 @@ func _on_button_exit():
 		set_scale(currentScale)
 
 func _on_button_press():
-	modulate = Color("8f8f8f")
-	set_scale(currentScale)
-	Global.time = action
+	if Global.time != action:
+		AudioManager.PlaySound(selectSound)
+		modulate = Color("8f8f8f")
+		set_scale(currentScale)
+		Global.time = action

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://cjs7l4lexk18c"]
+[gd_scene load_steps=27 format=3 uid="uid://cjs7l4lexk18c"]
 
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_2omd3"]
 [ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/HoverState.gd" id="2_ub84x"]
 [ext_resource type="FontFile" uid="uid://cg62bx556p7xk" path="res://Fonts/Pink and Crimson.otf" id="4_e55im"]
 [ext_resource type="Script" path="res://Scripts/TimeButton.gd" id="5_tu65w"]
+[ext_resource type="Script" path="res://Scripts/Settings.gd" id="7_lqbpj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_syo7a"]
 atlas = ExtResource("1_bl377")
@@ -60,6 +61,61 @@ region = Rect2(1, 243, 516, 310)
 [sub_resource type="AtlasTexture" id="AtlasTexture_k33yv"]
 atlas = ExtResource("1_bl377")
 region = Rect2(552, 240, 80, 80)
+
+[sub_resource type="Animation" id="Animation_xygco"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-200, 0), Vector2(-1.52588e-05, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6a84e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hw71b"]
+resource_name = "close"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-200, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cu1ki"]
+_data = {
+"RESET": SubResource("Animation_6a84e"),
+"close": SubResource("Animation_hw71b"),
+"open": SubResource("Animation_xygco")
+}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jqyph"]
 atlas = ExtResource("1_bl377")
@@ -374,12 +430,13 @@ script = ExtResource("5_tu65w")
 action = "stop"
 
 [node name="Settings" type="TextureRect" parent="."]
-offset_left = -201.0
-offset_right = 315.0
+offset_left = -200.0
+offset_right = 316.0
 offset_bottom = 310.0
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_877bm")
 flip_h = true
+script = ExtResource("7_lqbpj")
 
 [node name="SettingsButton" type="Button" parent="Settings"]
 layout_mode = 0
@@ -486,6 +543,11 @@ text = "On"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Settings"]
+libraries = {
+"": SubResource("AnimationLibrary_cu1ki")
+}
+
 [node name="Cost" type="TextureRect" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
@@ -518,3 +580,7 @@ $ 25"
 label_settings = SubResource("LabelSettings_7lfah")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[connection signal="pressed" from="Settings/SettingsButton" to="Settings" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Settings/Music/MusicButton" to="Settings" method="_on_music_button_pressed"]
+[connection signal="pressed" from="Settings/Audio/AudioButton" to="Settings" method="_on_audio_button_pressed"]

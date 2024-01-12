@@ -12,3 +12,7 @@ res://Scripts/GameOver.gd
 res://Scripts/Bubble.gd
 res://Scripts/Global.gd
 res://Scripts/GridSystem.gd
+res://Scripts/Settings.gd
+res://Scripts/MusicManager.gd
+res://Scripts/AudioManager.gd
+res://Scripts/TimeButton.gd

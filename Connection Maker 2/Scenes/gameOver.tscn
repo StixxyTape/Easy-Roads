@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://dvkw07okv3o21"]
+[gd_scene load_steps=17 format=3 uid="uid://dvkw07okv3o21"]
 
 [ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_evq05"]
 [ext_resource type="Script" path="res://Scripts/GameOver.gd" id="1_febvc"]
 [ext_resource type="Script" path="res://Scripts/MenuButtons.gd" id="2_g8ibc"]
 [ext_resource type="FontFile" uid="uid://cg62bx556p7xk" path="res://Fonts/Pink and Crimson.otf" id="3_kerr2"]
 [ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="4_4be1e"]
+[ext_resource type="Script" path="res://Scripts/Settings.gd" id="5_aub4k"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_163bn"]
 
@@ -19,6 +20,61 @@ region = Rect2(1, 243, 516, 310)
 [sub_resource type="AtlasTexture" id="AtlasTexture_oattn"]
 atlas = ExtResource("1_evq05")
 region = Rect2(552, 240, 80, 80)
+
+[sub_resource type="Animation" id="Animation_xygco"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-200, 0), Vector2(-1.52588e-05, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6a84e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hw71b"]
+resource_name = "close"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-200, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cu1ki"]
+_data = {
+"RESET": SubResource("Animation_6a84e"),
+"close": SubResource("Animation_hw71b"),
+"open": SubResource("Animation_xygco")
+}
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7ej0u"]
 texture = ExtResource("4_4be1e")
@@ -261,12 +317,13 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Settings" type="TextureRect" parent="CanvasLayer"]
-offset_left = -201.0
-offset_right = 315.0
+offset_left = -200.0
+offset_right = 316.0
 offset_bottom = 310.0
 scale = Vector2(0.8, 0.8)
 texture = SubResource("AtlasTexture_n2hg0")
 flip_h = true
+script = ExtResource("5_aub4k")
 
 [node name="SettingsButton" type="Button" parent="CanvasLayer/Settings"]
 layout_mode = 0
@@ -373,8 +430,17 @@ text = "On"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Settings"]
+libraries = {
+"": SubResource("AnimationLibrary_cu1ki")
+}
+
 [node name="TileMap" type="TileMap" parent="."]
 scale = Vector2(2, 2)
 tile_set = SubResource("TileSet_fid22")
 format = 2
 layer_0/tile_data = PackedInt32Array(6, 0, 0, 65542, 0, 0, 131078, 0, 0, 196614, 0, 0, 262150, 0, 0, 327686, 0, 0, 393222, 0, 0, 458758, 131072, 4, 524294, 0, 0, 589830, 0, 0, 655366, 0, 0, 786438, 0, 0, 851974, 0, 0, 917510, 0, 0, 983046, 0, 0, 1048582, 0, 0, 1114118, 0, 0, 1179654, 0, 0, 1245190, 0, 0, 458757, 65536, 0, 458756, 65536, 0, 458755, 65536, 0, 458754, 65536, 0, 458753, 65536, 0, 458752, 65536, 0, 458759, 65536, 0, 458760, 65536, 0, 458761, 65536, 0, 458762, 0, 2, 917514, 196608, 2, 524298, 0, 0, 589834, 0, 0, 655370, 0, 0, 720906, 0, 8, 786442, 0, 0, 851978, 0, 0, 917515, 65536, 0, 917516, 65536, 0, 917517, 65536, 0, 917518, 65536, 0, 917519, 65536, 0, 917520, 65536, 0, 917521, 65536, 0, 917522, 65536, 0, 917523, 65536, 0, 917524, 65536, 0, 917525, 65536, 0, 917526, 65536, 0, 917527, 65536, 0, 917528, 65536, 0, 917529, 65536, 2, 655385, 131072, 2, 720921, 0, 0, 786457, 0, 0, 851993, 0, 0, 655386, 65536, 0, 655387, 65536, 0, 655388, 65536, 0, 655389, 65536, 0, 655390, 65536, 0, 655391, 0, 4, 655394, 0, 2, 917538, 196608, 2, 655392, 65536, 0, 655393, 65536, 0, 917539, 65536, 0, 917540, 65536, 0, 917541, 65536, 0, 917542, 65536, 0, 917543, 65536, 0, 917544, 65536, 0, 720930, 0, 0, 786466, 0, 0, 852002, 0, 0, 720927, 0, 0, 786463, 0, 0, 851999, 0, 0, 917535, 0, 0, 983071, 0, 0, 1048607, 0, 0, 1114143, 65536, 2, 1310726, 0, 0, 65567, 262144, 8, 131103, 0, 0, 196639, 0, 0, 262175, 0, 0, 327711, 0, 4, 393247, 0, 0, 458783, 0, 0, 524319, 0, 0, 589855, 0, 0, -65530, 0, 0, 524287, 65536, 0, 65551, 65536, 0, 65552, 65536, 0, 65553, 65536, 0, 65554, 65536, 0, 65555, 65536, 0, 65556, 65536, 0, 65557, 65536, 0, 65558, 65536, 0, 65550, 65536, 0, 65559, 0, 8, 65549, 196608, 2, 11, 196608, 2, 13, 0, 2, 12, 65536, 0, -65525, 0, 0, -65513, 0, 0, 23, 0, 0, 1245211, 0, 0, 1114139, 131072, 2, 1114140, 65536, 0, 1114141, 65536, 0, 1114142, 65536, 0, 1179675, 0, 0, 1310747, 0, 0, 720902, 0, 4, 851968, 131072, 8, 720896, 131072, 2, 851971, 65536, 2, 720899, 262144, 8, 720900, 65536, 0, 720901, 65536, 0, 720903, 65536, 0, 720904, 65536, 0, 720905, 65536, 0, 720898, 65536, 0, 720897, 65536, 0, 851969, 65536, 0, 851970, 65536, 0, 786432, 0, 0, 786435, 0, 0, 917504, 0, 0, 983040, 0, 0, 1048576, 0, 0, 1114112, 0, 0, 1179648, 0, 0, 1245184, 0, 0, 1310720, 0, 0, 327707, 393216, 8, 196631, 196608, 2, 327705, 196608, 2, 196633, 0, 2, 327706, 65536, 0, 196632, 65536, 0, 327708, 65536, 0, 327709, 65536, 0, 327710, 65536, 0, 327714, 65536, 0, 327712, 65536, 0, 327713, 65536, 0, 327715, 65536, 0, 327716, 65536, 0, 327717, 65536, 0, 327718, 65536, 0, 327719, 65536, 0, 327720, 65536, 0, 262169, 0, 0, 131095, 0, 0, 262171, 0, 0, 196635, 0, 0, 131099, 0, 0, 65563, 131072, 2, 65564, 65536, 0, 65565, 65536, 0, 65566, 65536, 0, 65570, 65536, 2, 65569, 65536, 0, 65568, 65536, 0, 34, 0, 0, -65502, 0, 0)
+
+[connection signal="pressed" from="CanvasLayer/Settings/SettingsButton" to="CanvasLayer/Settings" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Settings/Music/MusicButton" to="CanvasLayer/Settings" method="_on_music_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Settings/Audio/AudioButton" to="CanvasLayer/Settings" method="_on_audio_button_pressed"]
