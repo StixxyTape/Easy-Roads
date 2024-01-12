@@ -1,0 +1,586 @@
+[gd_scene load_steps=27 format=3 uid="uid://cjs7l4lexk18c"]
+
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="1_2omd3"]
+[ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
+[ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="2_pv2pt"]
+[ext_resource type="Script" path="res://Scripts/HoverState.gd" id="2_ub84x"]
+[ext_resource type="FontFile" uid="uid://cg62bx556p7xk" path="res://Fonts/Pink and Crimson.otf" id="4_e55im"]
+[ext_resource type="Script" path="res://Scripts/TimeButton.gd" id="5_tu65w"]
+[ext_resource type="Script" path="res://Scripts/Settings.gd" id="7_lqbpj"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_syo7a"]
+atlas = ExtResource("1_bl377")
+region = Rect2(384, 80, 112, 104)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yxc4"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ms0bv"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 128, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqk31"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mo3yr"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssi8q"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_54bfg"]
+atlas = ExtResource("2_pv2pt")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4grt7"]
+atlas = ExtResource("1_bl377")
+region = Rect2(648, 0, 192, 184)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fklyv"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 35
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yor5i"]
+atlas = ExtResource("1_bl377")
+region = Rect2(552, 128, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl1lj"]
+atlas = ExtResource("1_bl377")
+region = Rect2(592, 128, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_877bm"]
+atlas = ExtResource("1_bl377")
+region = Rect2(1, 243, 516, 310)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k33yv"]
+atlas = ExtResource("1_bl377")
+region = Rect2(552, 240, 80, 80)
+
+[sub_resource type="Animation" id="Animation_6a84e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hw71b"]
+resource_name = "close"
+length = 0.5
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-200, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xygco"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-200, 0), Vector2(-1.52588e-05, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cu1ki"]
+_data = {
+"RESET": SubResource("Animation_6a84e"),
+"close": SubResource("Animation_hw71b"),
+"open": SubResource("Animation_xygco")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jqyph"]
+atlas = ExtResource("1_bl377")
+region = Rect2(360, 8, 160, 72)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7lfah"]
+line_spacing = 0.0
+font = ExtResource("4_e55im")
+font_size = 22
+font_color = Color(0.878431, 0.729412, 0.545098, 1)
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_2omd3")
+
+[node name="Remove" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -305.0
+offset_top = -83.0
+offset_right = -193.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "remove"
+
+[node name="TextureRect" type="TextureRect" parent="Remove"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8yxc4")
+
+[node name="Tjunction" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -205.0
+offset_top = -83.0
+offset_right = -93.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "tjunction"
+price = 25
+
+[node name="TextureRect" type="TextureRect" parent="Tjunction"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ms0bv")
+
+[node name="RoadTurn" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -125.0
+offset_top = -83.0
+offset_right = -13.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "turn"
+price = 10
+
+[node name="TextureRect" type="TextureRect" parent="RoadTurn"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_dqk31")
+
+[node name="RoadStraight" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -44.9999
+offset_top = -82.9999
+offset_right = 67.0001
+offset_bottom = 21.0001
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "straigth"
+price = 10
+
+[node name="TextureRect" type="TextureRect" parent="RoadStraight"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_mo3yr")
+
+[node name="Cross" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = -83.0
+offset_right = 147.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "cross"
+price = 50
+
+[node name="TextureRect" type="TextureRect" parent="Cross"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_ssi8q")
+
+[node name="Roundabout" type="TextureButton" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -83.0
+offset_right = 227.0
+offset_bottom = 21.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.8, 0.8)
+texture_normal = SubResource("AtlasTexture_syo7a")
+script = ExtResource("2_ub84x")
+type = "roundabout"
+price = 50
+
+[node name="TextureRect" type="TextureRect" parent="Roundabout"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_54bfg")
+
+[node name="InfoBoard" type="TextureRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -150.0
+offset_right = 42.0
+offset_bottom = 184.0
+grow_horizontal = 0
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_4grt7")
+
+[node name="Time" type="Label" parent="InfoBoard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 5.0
+offset_right = 72.0
+offset_bottom = 56.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 50
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Day" type="Label" parent="InfoBoard"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = 50.0
+offset_right = 70.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Day 01
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Money" type="Label" parent="InfoBoard"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -39.0
+offset_right = 72.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "$ 150.0K
+"
+label_settings = SubResource("LabelSettings_fklyv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Play" type="TextureButton" parent="InfoBoard"]
+modulate = Color(0.560784, 0.560784, 0.560784, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.25
+offset_top = -9.5
+offset_right = -12.25
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.35, 1.35)
+texture_normal = SubResource("AtlasTexture_yor5i")
+script = ExtResource("5_tu65w")
+action = "play"
+
+[node name="Stop" type="TextureButton" parent="InfoBoard"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 12.0
+offset_top = -6.0
+offset_right = 52.0
+offset_bottom = 42.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.2, 1.2)
+texture_normal = SubResource("AtlasTexture_gl1lj")
+script = ExtResource("5_tu65w")
+action = "stop"
+
+[node name="Settings" type="TextureRect" parent="."]
+offset_left = -200.0
+offset_right = 316.0
+offset_bottom = 310.0
+scale = Vector2(0.8, 0.8)
+texture = SubResource("AtlasTexture_877bm")
+flip_h = true
+script = ExtResource("7_lqbpj")
+
+[node name="SettingsButton" type="Button" parent="Settings"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 516.0
+offset_bottom = 72.0
+focus_mode = 0
+theme_override_colors/font_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_colors/font_pressed_color = Color(0.0588235, 0.0745098, 0.0862745, 1)
+theme_override_colors/font_hover_color = Color(0.137255, 0.164706, 0.176471, 1)
+theme_override_colors/font_focus_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_colors/font_disabled_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 45
+text = "                  Settings"
+flat = true
+
+[node name="Music" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 57.5
+offset_top = 85.0
+offset_right = 161.5
+offset_bottom = 131.0
+theme_override_colors/font_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 40
+text = "Music"
+horizontal_alignment = 1
+
+[node name="MusicButton" type="TextureButton" parent="Settings/Music"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 30.0
+offset_right = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+texture_normal = SubResource("AtlasTexture_k33yv")
+
+[node name="Label" type="Label" parent="Settings/Music/MusicButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -15.0
+offset_right = 20.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "On"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Audio" type="Label" parent="Settings"]
+layout_mode = 0
+offset_left = 58.75
+offset_top = 201.25
+offset_right = 162.75
+offset_bottom = 247.25
+theme_override_colors/font_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 40
+text = "Audio"
+horizontal_alignment = 1
+
+[node name="AudioButton" type="TextureButton" parent="Settings/Audio"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_top = 30.0
+offset_right = 40.0
+offset_bottom = 110.0
+grow_horizontal = 2
+texture_normal = SubResource("AtlasTexture_k33yv")
+
+[node name="Label" type="Label" parent="Settings/Audio/AudioButton"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.5
+offset_top = -15.0
+offset_right = 20.5
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.0980392, 0.121569, 0.133333, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "On"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Settings"]
+libraries = {
+"": SubResource("AnimationLibrary_cu1ki")
+}
+
+[node name="Cost" type="TextureRect" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -80.0
+offset_right = 80.0
+offset_bottom = 72.0
+grow_horizontal = 2
+scale = Vector2(1.2, 1.2)
+texture = SubResource("AtlasTexture_jqyph")
+
+[node name="Label" type="Label" parent="Cost"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.9583
+offset_top = -25.5833
+offset_right = 52.0417
+offset_bottom = 28.4167
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.878431, 0.729412, 0.545098, 1)
+theme_override_fonts/font = ExtResource("4_e55im")
+theme_override_font_sizes/font_size = 25
+text = "Cost:
+$ 25"
+label_settings = SubResource("LabelSettings_7lfah")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Settings/SettingsButton" to="Settings" method="_on_settings_button_pressed"]
+[connection signal="pressed" from="Settings/Music/MusicButton" to="Settings" method="_on_music_button_pressed"]
+[connection signal="pressed" from="Settings/Audio/AudioButton" to="Settings" method="_on_audio_button_pressed"]
