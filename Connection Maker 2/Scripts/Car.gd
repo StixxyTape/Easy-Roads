@@ -23,6 +23,9 @@ var adjectedTilePlaced : bool
 var destination : Vector2
 var payedFee : int 
 
+# Coin
+var coin : PackedScene = preload("res://Scenes/coin.tscn")
+
 func _ready():	
 	# Sets the car to be invisible until it leaves the house
 	visible = false
@@ -113,8 +116,13 @@ func _physics_process(_delta):
 	#NavigationServer2D.map_get_path(get_world_2d().get_navigation_map(), global_position, navAgent.target_position, false)
 	
 	# If reached destination, don't run the rest of this code
-	if navAgent.is_navigation_finished():
+	if navAgent.is_navigation_finished() and adjectedTilePlaced:
 		Global.money += payedFee
+		
+		var inCoin = coin.instantiate()
+		inCoin.position = destination
+		get_parent().add_child(inCoin)
+		
 		adjectedTilePlaced = false
 		visible = false
 		bubble.time = 0

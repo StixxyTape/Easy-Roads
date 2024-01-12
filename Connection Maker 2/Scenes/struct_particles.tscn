@@ -1,6 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0wfiorhixmab"]
+[gd_scene load_steps=8 format=3 uid="uid://d0wfiorhixmab"]
 
 [ext_resource type="Texture2D" uid="uid://c0snlafgfgubs" path="res://Art/Particles/Particle.png" id="1_ped53"]
+
+[sub_resource type="Gradient" id="Gradient_nrit3"]
+offsets = PackedFloat32Array(0, 0.281481, 0.740741, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0.74902, 0.74902, 0.74902, 0.705882, 0.282353, 0.282353, 0.282353, 0.705882, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4sq4j"]
+gradient = SubResource("Gradient_nrit3")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6y2di"]
 lifetime_randomness = 0.5
@@ -16,6 +23,7 @@ orbit_velocity_min = 0.0
 orbit_velocity_max = 0.0
 scale_min = 0.1
 scale_max = 0.3
+color_ramp = SubResource("GradientTexture1D_4sq4j")
 
 [sub_resource type="Animation" id="Animation_nxa1x"]
 resource_name = "Default"
@@ -71,7 +79,7 @@ _data = {
 [node name="StructParticles" type="GPUParticles2D"]
 z_index = 2
 emitting = false
-amount = 1000
+amount = 200
 process_material = SubResource("ParticleProcessMaterial_6y2di")
 texture = ExtResource("1_ped53")
 one_shot = true

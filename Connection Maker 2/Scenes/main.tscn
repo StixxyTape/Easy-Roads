@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cwdlhhjv2uxy2"]
+[gd_scene load_steps=45 format=3 uid="uid://cwdlhhjv2uxy2"]
 
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="1_3iegl"]
 [ext_resource type="Texture2D" uid="uid://debqpb2urr8ck" path="res://Art/Ground.png" id="1_hbcj1"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dhbxupkwup0e4" path="res://Art/Structures/Restaurant.png" id="7_0dlpc"]
 [ext_resource type="Texture2D" uid="uid://eov80m2kxj8k" path="res://Art/Structures/Store.png" id="8_nm0dl"]
 [ext_resource type="Script" path="res://Scripts/AudioManager.gd" id="11_1ckhv"]
+[ext_resource type="AudioStream" uid="uid://crxjy5yns5l2a" path="res://Music/Main_theme.ogg" id="12_4o58r"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_1jivu"]
 
@@ -315,3 +316,7 @@ script = ExtResource("3_q74ai")
 
 [node name="AudioManager" type="Node" parent="."]
 script = ExtResource("11_1ckhv")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_4o58r")
+autoplay = true

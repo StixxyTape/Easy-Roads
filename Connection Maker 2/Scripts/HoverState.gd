@@ -7,7 +7,7 @@ var hover : bool
 @onready var tilemap = $"../../NavigationRegion2D/TileMap"
 var priceLabel : TextureRect
 
-var selectSound = preload("res://Sounds/Select.wav")
+var selectSound = preload("res://Sounds/Menu.wav")
 
 func _ready():
 	self.mouse_entered.connect(_on_button_hovered)

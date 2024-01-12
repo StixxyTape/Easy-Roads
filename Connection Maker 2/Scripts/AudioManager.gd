@@ -5,6 +5,7 @@ func PlaySound(stream: AudioStream):
 	streamPlayer.stream = stream
 	streamPlayer.finished.connect(RemoveNode.bind(streamPlayer))
 	add_child(streamPlayer)
+	streamPlayer.volume_db = -5
 	streamPlayer.play()
 
 func RemoveNode(instance: AudioStreamPlayer):

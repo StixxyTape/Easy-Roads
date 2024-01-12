@@ -57,7 +57,7 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 10
+var houseSpawnCooldown : int = 8
 
 # To keep track of the days and structures that have been built
 var passedDays : Array = []
@@ -66,6 +66,10 @@ var structCounter : int
 # Particles 
 var structParticles : PackedScene = preload("res://Scenes/struct_particles.tscn")
 var buildParticles : PackedScene = preload("res://Scenes/building_particles.tscn")
+
+# Sounds
+var placeSound : AudioStreamWAV = preload("res://Sounds/sfx_sounds_impact3.wav")
+
 func SpawnHouse():
 	var positionTaken = false
 	var randX : int
@@ -251,15 +255,18 @@ func DayGridUpdate():
 		if Global.day == 1:
 			TimeSystem(start_x, start_y, width, height)
 			TimeSystem(start_x, start_y, width, height)
-		elif Global.day == 2:
+		elif Global.day == 4:
 			TimeSystem(start_x -2, start_y -2, width + 4, height + 4)
 			gridSize = 8
-		elif Global.day == 4:
+		elif Global.day == 8:
 			TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
 			gridSize = 10
-		elif Global.day == 6:
+			Global.bubbleTimer = 40
+			houseSpawnCooldown = 5
+		elif Global.day == 10:
 			TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
 			gridSize = 12
+			Global.bubbleTimer = 30
 			
 		passedDays.append(Global.day)
 		
@@ -342,6 +349,8 @@ func BuildSystem():
 				Global.money -= Global.currentPrice
 			else:
 				erase_cell(2, pos)
+		if len(roadPlaced) > 0:
+			AudioManager.PlaySound(placeSound)
 		roadPlaced = []
 		touchedBuilding = false
 		placing = false
