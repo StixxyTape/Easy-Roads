@@ -24,5 +24,4 @@ func SpawnCars():
 			tileMap.add_child(spawnedCar)
 			spawnedCar.position = spawnPositions.pick_random()
 			spawnedCar.destination = spawnPositions.pick_random() * 2
-			#print(spawnedCar.destination)
 			spawning = true

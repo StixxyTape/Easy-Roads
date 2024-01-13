@@ -1,7 +1,7 @@
 extends TileMap
 
 # How big the grid is e.g 4x4
-var gridSize : int = 5
+var gridSize : int = 6
 
 # Define the area in tile coordinates
 var start_x = -14
@@ -52,13 +52,12 @@ var placing : bool
 var touchedBuilding : bool
 var lastTilePos : Vector2
 var touchedBuildingPos : Vector2
-var playedSound : bool
 
 # Variable to check when spawning a house
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 10
+var houseSpawnCooldown : int = 8
 
 # To keep track of the days and structures that have been built
 var passedDays : Array = []
@@ -76,34 +75,39 @@ func SpawnHouse():
 	var randX : int
 	var randY : int
 	var houseType : int = randi_range(0, 4)
-	
+	var attemptCounter : int = 0
 	var gridPos : Vector2
+	
 	# Offsets to make sure the house doesn't spawn next to another structure
 	var marginOffsets = [
 		Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1),
 		Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0),
 		Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)
 	]
-	
 	# Loop that only breaks when found a suitable spawn position
 	while true:
-		randX = randi_range(-gridSize -8, gridSize +8)
+		attemptCounter += 1
+		print(attemptCounter)
+		if attemptCounter >= 30:
+			return null
+			
+		randX = randi_range(-gridSize - 6, gridSize + 6)
 		randY = randi_range(-gridSize, gridSize)
-		
 		positionTaken = false
 		gridPos = Vector2(randX, randY)
 		
-		if dic.has(str(gridPos)) and dic[str(gridPos)]["Type"] == "House":
+		if (dic.has(str(gridPos)) and dic[str(gridPos)]["Type"] == "House") or gridPos not in buildArea:
 			positionTaken = true
-			
+		
 		for offset in marginOffsets:
 			gridPos = Vector2(randX, randY) + offset
 
-			if dic.has(str(gridPos)) and dic[str(gridPos)]["Type"] != "House":
+			if dic.has(str(gridPos)) and (dic[str(gridPos)]["Type"] != "House" and dic[str(gridPos)]["Type"] != "Grass" and dic[str(gridPos)]["Type"] != "Trees"):
 				positionTaken = true
 				break  # Stop checking further, a position is taken
 		
 		if not positionTaken:
+			print("Attempt Counter Finished")
 			gridPos = Vector2(randX, randY)
 			break  # Found an available position, exit the loop
 			
@@ -124,8 +128,7 @@ func SpawnHouse():
 	return gridPos
 	
 func HouseManager():
-	var housePos : Vector2
-	
+	var housePos
 	# Spawn a car after every houseSpawnCooldown seconds
 	if spawningHouse == true:
 		spawningHouse = false
@@ -135,7 +138,7 @@ func HouseManager():
 		spawningHouse = true
 		
 	# Spawn a bubble and car at the house
-	if housePos:
+	if housePos and housePos != null:
 		
 		# Instantiates bubble with offset
 		var spawnedBubble = bubble.instantiate()
@@ -211,14 +214,14 @@ func SetupStructure():
 	
 	# Keep generating new positions until an available one is found for the current structure
 	while true:
-		randX = randi_range(-gridSize, gridSize)
-		randY = randi_range(-gridSize, gridSize)
+		randX = randi_range(-gridSize - 7, gridSize + 7)
+		randY = randi_range(-gridSize - 1, gridSize + 1)
 		
 		positionTaken = false
 		
 		for offset in marginOffsets:
 			var gridPos = Vector2(randX, randY) + offset
-			if (dic.has(str(gridPos)) and (dic[str(gridPos)]["Type"] != "Trees" and dic[str(gridPos)]["Type"] != "Grass")) or gridPos not in buildArea:
+			if (dic.has(str(gridPos)) and (dic[str(gridPos)]["Type"] != "Trees" and dic[str(gridPos)]["Type"] != "Grass" and dic[str(gridPos)]["Type"] != "Road")) or gridPos not in buildArea:
 				positionTaken = true
 				break  # Stop checking further, a position is taken
 		
@@ -284,7 +287,7 @@ func DayGridUpdate():
 			TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
 			gridSize = 10
 			Global.bubbleTimer = 40
-			houseSpawnCooldown = 8
+			houseSpawnCooldown = 5
 		elif Global.day == 10:
 			TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
 			gridSize = 12
@@ -317,13 +320,12 @@ func TimeSystem(posx,posy,fulwidth,fulheight):
 							"Type" : "Trees",
 							"Position" : str(Vector2i(x, y))
 						}
+					
 	SetupStructure()
 	
 func BuildSystem():
 	# Erase the preview tile
 	erase_cell(1, mouseTile)
-	if !Input.is_action_pressed("Left Click"):
-		erase_cell(2, mouseTile)
 	
 	# Gets the tile at your mouse coordinates
 	mouseTile = local_to_map(get_global_mouse_position())
@@ -394,14 +396,10 @@ func BuildSystem():
 				add_child(particles)
 				
 				Global.money -= Global.currentPrice
-				
-				if !playedSound:
-					AudioManager.PlaySound(placeSound)
-					playedSound = true
-				
 			else:
 				erase_cell(2, pos)
-		playedSound = false
+		if len(roadPlaced) > 0:
+			AudioManager.PlaySound(placeSound)
 		roadPlaced = []
 		touchedBuilding = false
 		placing = false

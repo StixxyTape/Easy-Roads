@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cjs7l4lexk18c"]
+[gd_scene load_steps=29 format=3 uid="uid://c42tblrd5erfl"]
 
 [ext_resource type="Script" path="res://Scripts/UI.gd" id="1_2omd3"]
 [ext_resource type="Texture2D" uid="uid://bpiqgttfuqcj2" path="res://Art/UI/UI.png" id="1_bl377"]
@@ -7,7 +7,7 @@
 [ext_resource type="FontFile" uid="uid://cg62bx556p7xk" path="res://Fonts/Pink and Crimson.otf" id="4_e55im"]
 [ext_resource type="Script" path="res://Scripts/TimeButton.gd" id="5_tu65w"]
 [ext_resource type="Script" path="res://Scripts/Settings.gd" id="7_lqbpj"]
-[ext_resource type="PackedScene" uid="uid://b4wwvoljbmc2b" path="res://Scenes/arrow.tscn" id="8_j5lb5"]
+[ext_resource type="PackedScene" uid="uid://c1502dctv2ohb" path="res://Scenes/arrow.tscn" id="8_j5lb5"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_aqkax"]
 

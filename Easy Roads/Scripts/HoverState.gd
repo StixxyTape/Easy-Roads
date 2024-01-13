@@ -37,19 +37,18 @@ func _on_button_exit():
 	Global.overButton = false
 
 func _on_button_press():
-	if !Global.tutorial:
-		if active:
-			Global.roadType = ""
-			active = false
-			if priceLabel:
-				priceLabel.visible = false
-				Global.currentPrice = 0
-		else:
-			if priceLabel:
-				priceLabel.visible = true
-				Global.currentPrice = price
-			tilemap.tileCounter = 0
-			self_modulate = Color("999999dc")
-			active = true
-			Global.roadType = type
-			AudioManager.PlaySound(selectSound)
+	if active:
+		Global.roadType = ""
+		active = false
+		if priceLabel:
+			priceLabel.visible = false
+			Global.currentPrice = 0
+	else:
+		if priceLabel:
+			priceLabel.visible = true
+			Global.currentPrice = price
+		tilemap.tileCounter = 0
+		self_modulate = Color("999999dc")
+		active = true
+		Global.roadType = type
+		AudioManager.PlaySound(selectSound)

@@ -1,11 +1,11 @@
-[gd_scene load_steps=62 format=3 uid="uid://cwdlhhjv2uxy2"]
+[gd_scene load_steps=62 format=3 uid="uid://b0juvmbgrq5ln"]
 
 [ext_resource type="Script" path="res://Scripts/Camera.gd" id="1_3iegl"]
 [ext_resource type="Texture2D" uid="uid://debqpb2urr8ck" path="res://Art/Ground.png" id="1_hbcj1"]
 [ext_resource type="Texture2D" uid="uid://bsyp6pd30yi0f" path="res://Art/TileSet.png" id="1_nbaej"]
 [ext_resource type="Texture2D" uid="uid://cnjp17pv0yy1e" path="res://Art/Structures/Library.png" id="3_bau67"]
 [ext_resource type="Script" path="res://Scripts/GridSystem.gd" id="3_q74ai"]
-[ext_resource type="PackedScene" uid="uid://cjs7l4lexk18c" path="res://Scenes/ui.tscn" id="4_5cxmc"]
+[ext_resource type="PackedScene" uid="uid://c42tblrd5erfl" path="res://Scenes/ui.tscn" id="4_5cxmc"]
 [ext_resource type="Texture2D" uid="uid://b1acomgm2ndxy" path="res://Art/Structures/Cinema.png" id="5_vir4r"]
 [ext_resource type="Texture2D" uid="uid://dfeatle6j6no8" path="res://Art/Structures/Park.png" id="6_nqe8j"]
 [ext_resource type="Texture2D" uid="uid://dhbxupkwup0e4" path="res://Art/Structures/Restaurant.png" id="7_0dlpc"]
