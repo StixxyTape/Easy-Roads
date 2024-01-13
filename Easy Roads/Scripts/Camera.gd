@@ -14,13 +14,13 @@ func _process(delta):
 		print("Bruh")
 		zoom -= Vector2.ONE * 0.1
 	if Input.is_action_pressed("Left") and position.x > -200:
-		position -= Vector2(5, 0)
+		position -= Vector2(1, 0)
 	if Input.is_action_pressed("Right") and position.x < 200:
-		position += Vector2(5, 0)
+		position += Vector2(1, 0)
 	if Input.is_action_pressed("Up") and position.y > -200:
-		position -= Vector2(0, 5)
+		position -= Vector2(0, 1)
 	if Input.is_action_pressed("Down") and position.y < 200:
-		position += Vector2(0, 5)
+		position += Vector2(0, 1)
 	# Smoothly interpolate between the current zoom and the target zoom
 	if Global.day == 4:
 		target_zoom = Vector2(1.7,1.7)

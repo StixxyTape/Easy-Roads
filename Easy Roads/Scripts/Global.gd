@@ -30,7 +30,8 @@ var gameOver : bool = false
 var music : bool = true
 var sounds : bool = true
 
-var tutorial : bool = true
+var tutorial : bool = false
+var tutorialCompleted : bool = false
 
 func Reset():
 	gameOver = false

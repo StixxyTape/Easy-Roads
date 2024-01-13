@@ -24,4 +24,6 @@ func _on_button_press():
 	elif action == "play":
 		AudioManager.PlaySound(startSound)
 		Global.Reset()
+		if !Global.tutorialCompleted:
+			Global.tutorial = true
 		get_tree().change_scene_to_file("res://Scenes/main.tscn")

@@ -128,3 +128,4 @@ func tutorialText():
 			tutorialbgc.visible = false
 			tutorialLabel.visible = false
 			Global.tutorial = false
+			Global.tutorialCompleted = true
