@@ -1,7 +1,7 @@
 extends TileMap
 
 # How big the grid is e.g 4x4
-var gridSize : int = 4
+var gridSize : int = 5
 
 # Define the area in tile coordinates
 var start_x = -14
@@ -57,7 +57,7 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 4
+var houseSpawnCooldown : int = 8
 
 # To keep track of the days and structures that have been built
 var passedDays : Array = []
@@ -302,7 +302,7 @@ func TimeSystem(posx,posy,fulwidth,fulheight):
 				buildArea.append(Vector2(x,y))
 				set_cell(4, Vector2i(x,y), 0, Vector2i(1,0))
 				# For adding trees and bushes
-				if randi_range(0, 6) == 0:
+				if randi_range(0, 10) == 0:
 					var randX = randi_range(5, 6)
 					var randY = randi_range(2, 5)
 					set_cell(0, Vector2i(x,y), 2, Vector2i(randX, randY))
