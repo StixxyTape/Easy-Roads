@@ -115,6 +115,7 @@ func _physics_process(_delta):
 		inCoin.position = destination
 		get_parent().add_child(inCoin)
 		
+		tileMap.set_cell(5, houseCord, 2, Vector2i(1, 1))
 		adjectedTilePlaced = false
 		visible = false
 		bubble.time = 0
@@ -129,12 +130,15 @@ func _physics_process(_delta):
 		
 	# If destination is not reachable and your position is not where you spawned, respawn
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
+		tileMap.set_cell(5, houseCord, 2, Vector2i(1, 1))
 		adjectedTilePlaced = false
 		visible = false
 		position = spawnPos
+
 	
-	if tileMap.get_cell_atlas_coords(0, nextTilePos) in houseTiles:
+	if tileMap.get_cell_atlas_coords(0, nextTilePos) in houseTiles and nextTilePos != houseCord:
 		return
+		
 	# Move towards next position in path * speed
 	if navAgent.is_target_reachable():
 		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
