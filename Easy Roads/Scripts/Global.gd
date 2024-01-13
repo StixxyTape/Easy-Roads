@@ -30,6 +30,8 @@ var gameOver : bool = false
 var music : bool = true
 var sounds : bool = true
 
+var tutorial : bool = true
+
 func Reset():
 	gameOver = false
 	builtStructs = []

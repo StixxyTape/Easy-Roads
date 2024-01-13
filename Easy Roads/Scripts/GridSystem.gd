@@ -130,7 +130,7 @@ func HouseManager():
 	if spawningHouse == true:
 		spawningHouse = false
 		await get_tree().create_timer(houseSpawnCooldown).timeout
-		if Global.time == "play":
+		if Global.time == "play" and !Global.tutorial:
 			housePos = SpawnHouse()
 		spawningHouse = true
 		

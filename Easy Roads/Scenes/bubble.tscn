@@ -97,7 +97,6 @@ _data = {
 }
 
 [node name="Bubble" type="TextureProgressBar"]
-modulate = Color(1, 1, 1, 0.235294)
 z_index = 5
 layout_direction = 1
 anchors_preset = 8
