@@ -31,7 +31,7 @@ func actor_setup():
 
 func set_movement_target(movement_target: Vector2):
 	navAgent.target_position = movement_target
-	print(navAgent.target_position)
+
 func _physics_process(_delta):
 	# Variables for controlling car offset
 	var currentAgentPos: Vector2 = global_position
@@ -55,7 +55,8 @@ func _physics_process(_delta):
 		look_at(nextPathPos)
 
 	# If reached destination, don't run the rest of this code
-	if navAgent.is_navigation_finished() and navAgent.target_position != Vector2.ZERO:
+	if navAgent.is_target_reached() and navAgent.target_position != Vector2.ZERO:
+		print(navAgent.target_position)
 		queue_free()
 	
 	# Move towards next position in path * speed

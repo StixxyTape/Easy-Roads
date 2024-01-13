@@ -118,10 +118,10 @@ vertices = PackedVector2Array(-4, 4, -4, -4, 4, -4, 4, 4, 8, -4, 8, 4, -4, 8, 4,
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(2, 4, 5, 3), PackedInt32Array(6, 0, 3, 7)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-4, 8, 4, 8, 4, 4, 8, 4, 8, -4, 4, -4, -4, -4, -4, 4)])
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_0746h"]
-vertices = PackedVector2Array(-4, 0, -8, 8, -8, -4, 0, -4, -8, -8, 4, -8, 4, 0, 8, -8, 8, 4, 0, 4, 8, 8, -4, 8)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5), PackedInt32Array(6, 7, 8), PackedInt32Array(9, 10, 11), PackedInt32Array(9, 11, 0, 3), PackedInt32Array(0, 2, 3), PackedInt32Array(3, 5, 6, 9), PackedInt32Array(6, 8, 9)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-4, 8, -4, 0, -8, 8, -8, -4, 0, -4, -8, -8, 4, -8, 4, 0, 8, -8, 8, 4, 0, 4, 8, 8)])
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_c15mv"]
+vertices = PackedVector2Array(2.66667, 2.66667, 2.66667, -2.66667, 8, -2.66667, 8, 2.66667, 5.33333, 5.33333, -2.66667, 2.66667, 2.66667, 8, -2.66667, 8, -5.33333, 5.33333, -2.66667, -2.66667, -8, 2.66667, -8, -2.66667, -5.33333, -5.33333, -2.66667, -8, 2.66667, -8)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 0, 4, 6, 7, 8), PackedInt32Array(9, 5, 8, 10, 11, 12), PackedInt32Array(2, 1, 9, 12, 13, 14)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-5.33333, -5.33333, -2.66667, -2.66667, -2.66667, 2.66667, 2.66667, 2.66667, 2.66667, -2.66667, 8, -2.66667, 8, 2.66667, 5.33333, 5.33333, 2.66667, 8, -2.66667, 8, -5.33333, 5.33333, -8, 2.66667, -8, -2.66667), PackedVector2Array(8, -2.66667, 2.66667, -2.66667, -2.66667, -2.66667, -5.33333, -5.33333, -2.66667, -8, 2.66667, -8)])
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_d6wh4"]
 vertices = PackedVector2Array(4, 4, 4, 8, -4, 8, -4, 4, -4, -4, 4, -4, -4, -8, 4, -8, 8, 4, 8, -4)
@@ -215,7 +215,7 @@ texture = ExtResource("4_js1pc")
 0:4/0 = 0
 0:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_3mkcy")
 2:4/0 = 0
-2:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_0746h")
+2:4/0/navigation_layer_0/polygon = SubResource("NavigationPolygon_c15mv")
 5:4/0 = 0
 6:4/0 = 0
 7:4/0 = 0

@@ -15,4 +15,4 @@ func _process(delta):
 		position = position.move_toward(Vector2(currentPos.x, currentPos.y - 20), 50 * delta)
 	else:
 		achieved = true
-		position = position.move_toward(Vector2(currentPos.x, currentPos.y), 50 * delta)
+		#position = position.move_toward(Vector2(currentPos.x, currentPos.y), 50 * delta)

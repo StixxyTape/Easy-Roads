@@ -19,6 +19,8 @@ var adjectedTiles : Array = [Vector2(0, 6), Vector2(1, 6), Vector2(2, 6), Vector
 var adjectedTilesPos : Array
 var adjectedTilePlaced : bool
 
+var navTiles : Array = [Vector2(2, 1), Vector2(3, 1), Vector2(4, 1), Vector2(5, 1)]
+var houseTiles : Array = [Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0), Vector2i(10, 0), Vector2i(11, 0)]
 # variable for the set bubble
 var destination : Vector2
 var payedFee : int 
@@ -62,35 +64,23 @@ func _physics_process(_delta):
 	nextPathPos = navAgent.get_next_path_position()
 	var nextTilePos : Vector2 = tileMap.local_to_map(nextPathPos)
 	var carTilePos : Vector2 = tileMap.local_to_map(global_position)
-
-	if navAgent.is_target_reachable():
-		var paths = navAgent.get_current_navigation_path()
-		houseCount = []
-		for path in paths:
-			var tilePos = tileMap.local_to_map(path)
-			var atlesPos = tileMap.get_cell_atlas_coords(0,tilePos)
-			if atlesPos == Vector2i(7,0) or atlesPos == Vector2i(8,0) or atlesPos == Vector2i(9,0) or atlesPos == Vector2i(10,0) or atlesPos == Vector2i(11,0):
-				if tilePos not in houseCount:
-					houseCount.append(tilePos)
 		
-		if len(houseCount) > 1:
-			obstacle = true
-		else :
-			houseCount = []
-			obstacle = false
-	
 	# Handles placing a tile to denote which side the car leaves the house from
-	if carTilePos in adjectedTilesPos and !adjectedTilePlaced and navAgent.is_target_reachable():
+	if carTilePos in adjectedTilesPos and !adjectedTilePlaced and navAgent.is_target_reachable() and tileMap.get_cell_atlas_coords(0, carTilePos) not in houseTiles:
 		var i = adjectedTilesPos.find(carTilePos)
 		eraseStartPoints()
 		if houseCord.x < adjectedTilesPos[i].x:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[3])
+			tileMap.set_cell(5, houseCord, 2, navTiles[3])
 		elif houseCord.x > adjectedTilesPos[i].x:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[0])
+			tileMap.set_cell(5, houseCord, 2, navTiles[0])
 		elif houseCord.y < adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[2])
+			tileMap.set_cell(5, houseCord, 2, navTiles[2])
 		elif houseCord.y > adjectedTilesPos[i].y:
 			tileMap.set_cell(3, adjectedTilesPos[i], 2, adjectedTiles[1])
+			tileMap.set_cell(5, houseCord, 2, navTiles[1])
 		startPos = adjectedTilesPos[i]
 		position = tileMap.map_to_local(startPos)
 		
@@ -113,11 +103,12 @@ func _physics_process(_delta):
 	if navAgent.is_target_reachable():
 		look_at(nextPathPos)
 	
+	
 	# This is for getting the path ahead of the car
 	#NavigationServer2D.map_get_path(get_world_2d().get_navigation_map(), global_position, navAgent.target_position, false)
 	
-	# If reached destination, don't run the rest of this code
-	if navAgent.is_navigation_finished() and adjectedTilePlaced:
+	# If reached destination, don't run the rest of the code
+	if navAgent.is_target_reached() and adjectedTilePlaced:
 		Global.money += payedFee
 		
 		var inCoin = coin.instantiate()
@@ -135,15 +126,19 @@ func _physics_process(_delta):
 		
 		set_movement_target(destination)
 		return
+		
 	# If destination is not reachable and your position is not where you spawned, respawn
 	elif (!navAgent.is_target_reachable() and position != spawnPos):
 		adjectedTilePlaced = false
 		visible = false
 		position = spawnPos
 	
+	if tileMap.get_cell_atlas_coords(0, nextTilePos) in houseTiles:
+		return
 	# Move towards next position in path * speed
-	velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
-	move_and_slide()
+	if navAgent.is_target_reachable():
+		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
+		move_and_slide()
 
 func eraseStartPoints():
 	for pos in adjectedTilesPos:

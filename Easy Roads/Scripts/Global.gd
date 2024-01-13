@@ -36,7 +36,7 @@ func Reset():
 	roadType = ""
 	time = "play"
 	carSpeed = 35
-	bubbleTimer = 20
+	bubbleTimer = 120
 	day = 1
 	money = 500
 	currentPrice = 0

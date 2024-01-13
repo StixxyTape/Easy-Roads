@@ -37,7 +37,8 @@ vframes = 2
 path_desired_distance = 1.0
 target_desired_distance = 5.0
 path_postprocessing = 1
-avoidance_enabled = true
+avoidance_layers = 0
+avoidance_mask = 0
 
 [node name="Front" type="Area2D" parent="."]
 

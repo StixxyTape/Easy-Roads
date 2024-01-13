@@ -1,7 +1,7 @@
 extends TileMap
 
 # How big the grid is e.g 4x4
-var gridSize : int = 5
+var gridSize : int = 4
 
 # Define the area in tile coordinates
 var start_x = -14
@@ -115,6 +115,7 @@ func SpawnHouse():
 			}
 	
 	set_cell(0, gridPos, 2, houseTiles[houseType])
+	set_cell(5, gridPos, 2, Vector2i(1, 1))
 	# Adds position to buildings list
 	buildings.append(gridPos)
 	
@@ -131,6 +132,7 @@ func HouseManager():
 		if Global.time == "play":
 			housePos = SpawnHouse()
 		spawningHouse = true
+		
 	# Spawn a bubble and car at the house
 	if housePos:
 		
