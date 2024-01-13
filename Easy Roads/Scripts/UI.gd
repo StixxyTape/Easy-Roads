@@ -7,6 +7,7 @@ var minute : int = 0
 var minute_text : String = "00"
 var count : bool = false
 var tutorialCount : int = 0
+var counting : bool = false
 
 @onready var timeLabel : Label = $InfoBoard/Time
 @onready var dayLabel : Label = $InfoBoard/Day
@@ -34,7 +35,9 @@ func _ready():
 	tutorialLabel.text = ""
 
 func _process(_delta):
-	tutorialText()
+	if Global.tutorial:
+		tutorialText()
+		
 	if Input.is_action_just_pressed("Left Click"):
 		tutorialCount += 1
 	
@@ -73,9 +76,11 @@ func _process(_delta):
 	priceLabel.text = str("Cost:\n", Global.currentPrice)
 
 func timeCounting():
-	while Global.time == "play":
+	while Global.time == "play" and !counting:
+		counting = true
 		minute += randi_range(5,15)
 		await  get_tree().create_timer(0.5).timeout
+		counting = false
 
 func tutorialText():
 	match tutorialCount:
@@ -83,39 +88,43 @@ func tutorialText():
 			tutorialLabel.text = "Welcome to Easy Roads"
 		1: 
 			tutorialLabel.text = "It's your goal to manage this city"
-		2:
-			tutorialLabel.text = "Each house that spawns has a different destination"
-		3:
-			tutorialLabel.text = "These destination are the bigger structures on the map"
+		2: 
+			tutorialLabel.text = "Press WASD to move the camera."
+		3: 
+			tutorialLabel.text = "Use the scroll wheel on your mouse to zoom in and out"
 		4:
+			tutorialLabel.text = "Each house that spawns has a different destination"
+		5:
+			tutorialLabel.text = "These destination are the bigger structures on the map"
+		6:
 			tutorialLabel.text = "You can build roads for the cars\nto drive to their destination"
 			roadArrow.visible = true
-		5:
-			tutorialLabel.text = "Each road has a cost\nso be sure to have enough money to build"
-		6:
-			tutorialLabel.text = "You can place roads with left click\n you can also hold down to place multiple at once"
 		7:
-			tutorialLabel.text = "Roads can't be placed on trees"
+			tutorialLabel.text = "Each road has a cost\nso be sure to have enough money to build"
 		8:
-			tutorialLabel.text = "While holding left click\nyou can remove roads with also holding right click"
+			tutorialLabel.text = "You can place roads with left click\n you can also hold down to place multiple at once"
 		9:
+			tutorialLabel.text = "Roads can't be placed on trees"
+		10:
+			tutorialLabel.text = "While holding left click\nyou can remove roads with also holding right click"
+		11:
 			tutorialLabel.text = "If you misplaced a road\nyou can delete it with the remove button"
 			roadArrow.visible = false
 			removeArrow.visible = true
-		10:
+		12:
 			tutorialLabel.text = "Once the car reached it destination you get money\nand the house asks for a new destination"
 			removeArrow.visible = false
-		11:
+		13:
 			tutorialLabel.text = "Your money is shown in the top right\n you also see the time and day you're on"
 			infoArrow.visible = true
-		12:
+		14:
 			tutorialLabel.text = "You can also stop time if it gets too hectic"
-		13:
+		15:
 			tutorialLabel.text = "Don't let the cars wait or drive to long\n to reach their destination"
 			infoArrow.visible = false
-		14:
+		16:
 			tutorialLabel.text = "This was everything\nGood luck"
-		15:
+		17:
 			tutorialbgc.visible = false
 			tutorialLabel.visible = false
 			Global.tutorial = false

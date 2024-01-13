@@ -60,7 +60,7 @@ func _physics_process(_delta):
 		queue_free()
 	
 	# Move towards next position in path * speed
-	velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
+	velocity = currentAgentPos.direction_to(nextPathPos) * 100 * traffic
 	move_and_slide()
 	
 func _on_area_2d_area_entered(area):

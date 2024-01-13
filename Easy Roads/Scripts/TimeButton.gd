@@ -16,7 +16,7 @@ func _process(_delta):
 		modulate = Color("fff")
 
 func _on_button_hovered():
-	if Global.time != action:
+	if Global.time != action and !Global.tutorial:
 		set_scale(currentScale + Vector2(0.1, 0.1))
 
 func _on_button_exit():
@@ -24,7 +24,7 @@ func _on_button_exit():
 		set_scale(currentScale)
 
 func _on_button_press():
-	if Global.time != action:
+	if Global.time != action and !Global.tutorial:
 		AudioManager.PlaySound(selectSound)
 		modulate = Color("8f8f8f")
 		set_scale(currentScale)

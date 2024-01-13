@@ -19,10 +19,10 @@ func _process(_delta):
 		audioLabel.text = "Off"
 
 func _on_settings_button_pressed():
-	if open:
+	if open and !Global.tutorial:
 		open = false
 		anim.play("close")
-	else:
+	elif !open and !Global.tutorial:
 		open = true
 		anim.play("open")
 	AudioManager.PlaySound(selectSound)

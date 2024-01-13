@@ -348,11 +348,16 @@ func BuildSystem():
 	if Input.is_action_pressed("Left Click") and !Global.overButton and Global.roadType != "":
 		if Global.roadType == "remove" and mouseTile not in buildings :
 			if dic.has(str(mouseTile)):
-				if dic[str(mouseTile)]["Type"] != "Trees":
+				if dic[str(mouseTile)]["Type"] == "Road" or dic[str(mouseTile)]["Type"] == "Grass":
 					dic.erase(str(mouseTile))
 					erase_cell(0, mouseTile)
 					erase_cell(2, mouseTile)
 					erase_cell(3, mouseTile)
+					
+					var particles = buildParticles.instantiate()
+					particles.global_position = map_to_local(mouseTile)
+					particles.emitting = true
+					add_child(particles)
 			else:
 				erase_cell(0, mouseTile)
 				erase_cell(2, mouseTile)
