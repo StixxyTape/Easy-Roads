@@ -52,6 +52,7 @@ var placing : bool
 var touchedBuilding : bool
 var lastTilePos : Vector2
 var touchedBuildingPos : Vector2
+var playedSound : bool
 
 # Variable to check when spawning a house
 var spawningHouse : bool = true
@@ -86,7 +87,7 @@ func SpawnHouse():
 	
 	# Loop that only breaks when found a suitable spawn position
 	while true:
-		randX = randi_range(-gridSize -6, gridSize +6)
+		randX = randi_range(-gridSize -8, gridSize +8)
 		randY = randi_range(-gridSize, gridSize)
 		
 		positionTaken = false
@@ -316,12 +317,13 @@ func TimeSystem(posx,posy,fulwidth,fulheight):
 							"Type" : "Trees",
 							"Position" : str(Vector2i(x, y))
 						}
-					
 	SetupStructure()
 	
 func BuildSystem():
 	# Erase the preview tile
 	erase_cell(1, mouseTile)
+	if !Input.is_action_pressed("Left Click"):
+		erase_cell(2, mouseTile)
 	
 	# Gets the tile at your mouse coordinates
 	mouseTile = local_to_map(get_global_mouse_position())
@@ -392,10 +394,14 @@ func BuildSystem():
 				add_child(particles)
 				
 				Global.money -= Global.currentPrice
+				
+				if !playedSound:
+					AudioManager.PlaySound(placeSound)
+					playedSound = true
+				
 			else:
 				erase_cell(2, pos)
-		if len(roadPlaced) > 0:
-			AudioManager.PlaySound(placeSound)
+		playedSound = false
 		roadPlaced = []
 		touchedBuilding = false
 		placing = false

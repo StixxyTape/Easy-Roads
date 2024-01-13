@@ -39,23 +39,23 @@ func SetDestination():
 		"Store":
 			SetSprite(0, 32)
 			destination = Global.storePos
-			payedFee = 5
+			payedFee = 10
 		"Park":	
 			SetSprite(0, 48)
 			destination = Global.parkPos
-			payedFee = 5
+			payedFee = 10
 		"Library":
 			SetSprite(0, 64)
 			destination = Global.libraryPos
-			payedFee = 10
+			payedFee = 15
 		"Restaurant":
 			SetSprite(0, 16)
 			destination = Global.restaurantPos
-			payedFee = 15
+			payedFee = 20
 		"Cinema":
 			SetSprite(0, 0)
 			destination = Global.cinemaPos
-			payedFee = 15
+			payedFee = 20
 
 func SetSprite(x, y):
 	# Change sprite to according destination type
@@ -86,6 +86,9 @@ func Countdown():
 			if time > maxTime - 18 and !dangerZone:
 				anim.play("Danger")
 				dangerZone = true
+			elif time < maxTime - 18:
+				dangerZone = false
+				anim.play("RESET")
 			
 			value = time
 

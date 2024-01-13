@@ -22,7 +22,7 @@ var bubbleTimer : int = 60
 
 # Start Stats
 var day : int = 1
-var money : int = 200
+var money : int = 400
 var currentPrice : int = 0
 var gameOver : bool = false
 
@@ -36,9 +36,9 @@ func Reset():
 	roadType = ""
 	time = "play"
 	carSpeed = 35
-	bubbleTimer = 120
+	bubbleTimer = 60
 	day = 1
-	money = 500
+	money = 400
 	currentPrice = 0
 	
 # Handles pausing the game

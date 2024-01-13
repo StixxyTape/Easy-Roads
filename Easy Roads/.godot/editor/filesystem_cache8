@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1705158197
+::res://::1705158636
 export_presets.cfg::TextFile::-1::1705155645::0::1::::<><>::
 icon.svg::CompressedTexture2D::481858224256157837::1705155645::1705155821::1::::<><>::
 ::res://Art/::1705155821
@@ -26,26 +26,26 @@ UI.png::CompressedTexture2D::3456751574493229813::1705155645::1705155821::1::::<
 Pink and Crimson.otf::FontFile::5259612539975151168::1705155645::1705155821::1::::<><>::
 ::res://Music/::1705155821
 Main_theme.ogg::AudioStreamOggVorbis::6014123322956460786::1705155645::1705155821::1::::<><>::
-::res://Scenes/::1705157479
-bubble.tscn::PackedScene::3058478825827340118::1705155645::0::1::::<><>::uid://ba0bar73eu2dl
+::res://Scenes/::1705158240
+bubble.tscn::PackedScene::3058478825827340118::1705158240::0::1::::<><>::uid://ba0bar73eu2dl::::res://Art/Bubbles/ProgressBubble.png<>uid://bwvhi7eemecb1::::res://Art/Bubbles/BubbleFill.png<>res://Scripts/Bubble.gd
 building_particles.tscn::PackedScene::5983529744857786333::1705155645::0::1::::<><>::uid://c0snlafgfgubs
 car.tscn::PackedScene::4491931716539641924::1705155645::0::1::::<><>::res://Scripts/Car.gd<>uid://bsyp6pd30yi0f
 coin.tscn::PackedScene::659022514446254848::1705155645::0::1::::<><>::res://Scripts/Coin.gd<>uid://bsyp6pd30yi0f
 gameOver.tscn::PackedScene::8655253666565066968::1705155645::0::1::::<><>::uid://bpiqgttfuqcj2
-main.tscn::PackedScene::6323869830720588503::1705157479::0::1::::<><>::res://Scripts/Camera.gd<>uid://debqpb2urr8ck::::res://Art/Ground.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>uid://cnjp17pv0yy1e::::res://Art/Structures/Library.png<>res://Scripts/GridSystem.gd<>uid://cjs7l4lexk18c::::res://Scenes/ui.tscn<>uid://b1acomgm2ndxy::::res://Art/Structures/Cinema.png<>uid://dfeatle6j6no8::::res://Art/Structures/Park.png<>uid://dhbxupkwup0e4::::res://Art/Structures/Restaurant.png<>uid://eov80m2kxj8k::::res://Art/Structures/Store.png<>res://Scripts/AudioManager.gd
-menu.tscn::PackedScene::5259222264478907518::1705157479::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>res://Scripts/MenuCars.gd<>res://Scripts/MenuButtons.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/Settings.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
+main.tscn::PackedScene::6323869830720588503::1705157479::0::1::::<><>::res://Scripts/Camera.gd<>uid://debqpb2urr8ck
+menu.tscn::PackedScene::5259222264478907518::1705157479::0::1::::<><>::uid://bpiqgttfuqcj2
 menuCar.tscn::PackedScene::2771522595335697858::1705155645::0::1::::<><>::res://Scripts/menuCar.gd<>uid://bsyp6pd30yi0f
 Music.tscn::PackedScene::4210614232914250627::1705155645::0::1::::<><>::uid://crxjy5yns5l2a
 struct_particles.tscn::PackedScene::8959718085852732937::1705155645::0::1::::<><>::uid://c0snlafgfgubs
-ui.tscn::PackedScene::5443663887585954636::1705157479::0::1::::<><>::res://Scripts/UI.gd<>uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/HoverState.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/TimeButton.gd<>res://Scripts/Settings.gd
-::res://Scripts/::1705157477
+ui.tscn::PackedScene::5443663887585954636::1705157479::0::1::::<><>::res://Scripts/UI.gd<>uid://bpiqgttfuqcj2
+::res://Scripts/::1705158240
 AudioManager.gd::GDScript::-1::1705155645::0::1::::<>Node<>::
-Bubble.gd::GDScript::-1::1705155645::0::1::::<>TextureProgressBar<>::
+Bubble.gd::GDScript::-1::1705158224::0::1::::<>TextureProgressBar<>::
 Camera.gd::GDScript::-1::1705155645::0::1::::<>Camera2D<>::
 Car.gd::GDScript::-1::1705155968::0::1::::<>CharacterBody2D<>::
 Coin.gd::GDScript::-1::1705155645::0::1::::<>Node2D<>::
 GameOver.gd::GDScript::-1::1705155645::0::1::::<>Node2D<>::
-Global.gd::GDScript::-1::1705155645::0::1::::<>Node<>::
+Global.gd::GDScript::-1::1705158240::0::1::::<>Node<>::
 GridSystem.gd::GDScript::-1::1705157156::0::1::::<>TileMap<>::
 HoverState.gd::GDScript::-1::1705155645::0::1::::<>TextureButton<>::
 MenuButtons.gd::GDScript::-1::1705155645::0::1::::<>TextureButton<>::
