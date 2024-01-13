@@ -22,7 +22,7 @@ var bubbleTimer : int = 60
 
 # Start Stats
 var day : int = 1
-var money : int = 500
+var money : int = 200
 var currentPrice : int = 0
 var gameOver : bool = false
 

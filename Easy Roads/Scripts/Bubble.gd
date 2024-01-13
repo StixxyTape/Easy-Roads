@@ -39,23 +39,23 @@ func SetDestination():
 		"Store":
 			SetSprite(0, 32)
 			destination = Global.storePos
-			payedFee = 20
+			payedFee = 5
 		"Park":	
 			SetSprite(0, 48)
 			destination = Global.parkPos
-			payedFee = 20
+			payedFee = 5
 		"Library":
 			SetSprite(0, 64)
 			destination = Global.libraryPos
-			payedFee = 30
+			payedFee = 10
 		"Restaurant":
 			SetSprite(0, 16)
 			destination = Global.restaurantPos
-			payedFee = 40
+			payedFee = 15
 		"Cinema":
 			SetSprite(0, 0)
 			destination = Global.cinemaPos
-			payedFee = 40
+			payedFee = 15
 
 func SetSprite(x, y):
 	# Change sprite to according destination type

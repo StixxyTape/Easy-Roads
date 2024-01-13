@@ -255,6 +255,21 @@ sources/4 = SubResource("TileSetAtlasSource_l8pnk")
 sources/5 = SubResource("TileSetAtlasSource_gngip")
 sources/6 = SubResource("TileSetAtlasSource_ykala")
 
+[sub_resource type="Animation" id="Animation_p65ef"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera2D:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_2l4gd"]
 resource_name = "gameOver"
 length = 0.4
@@ -270,21 +285,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(-2, -2), Vector2(2, 2), Vector2(0, 0), Vector2(-2, 0), Vector2(2, -2)]
-}
-
-[sub_resource type="Animation" id="Animation_p65ef"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Camera2D:offset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c3ex3"]

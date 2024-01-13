@@ -49,5 +49,5 @@ func _process(_delta):
 
 func timeCounting():
 	while Global.time == "play":
-		minute += randi_range(5,5)
+		minute += randi_range(5,15)
 		await  get_tree().create_timer(0.5).timeout

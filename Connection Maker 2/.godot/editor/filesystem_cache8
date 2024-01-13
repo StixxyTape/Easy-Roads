@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1705052583
+::res://::1705155668
 icon.svg::CompressedTexture2D::481858224256157837::1704747864::1705045432::1::::<><>::
 ::res://Art/::1705045432
 Ground.png::CompressedTexture2D::7443080157343531306::1704893649::1705045432::1::::<><>::
@@ -19,34 +19,37 @@ Library.png::CompressedTexture2D::5704834624907980424::1704925317::1705045432::1
 Park.png::CompressedTexture2D::7518498295727725593::1704925317::1705045432::1::::<><>::
 Restaurant.png::CompressedTexture2D::7654081345336537217::1704925317::1705045432::1::::<><>::
 Store.png::CompressedTexture2D::310991984018365640::1704925317::1705045432::1::::<><>::
-::res://Art/UI/::1705045432
+::res://Art/UI/::1705061328
 UI.png::CompressedTexture2D::3456751574493229813::1704823545::1705045432::1::::<><>::
 ::res://Fonts/::1705045432
 Pink and Crimson.otf::FontFile::5259612539975151168::1704483583::1705045432::1::::<><>::
 ::res://Music/::1705047480
 Main_theme.ogg::AudioStreamOggVorbis::6014123322956460786::1705047367::1705047480::1::::<><>::
-::res://Scenes/::1705052683
+::res://Scenes/::1705061331
 bubble.tscn::PackedScene::3058478825827340118::1705045373::0::1::::<><>::uid://ba0bar73eu2dl
-building_particles.tscn::PackedScene::5983529744857786333::1705052682::0::1::::<><>::uid://c0snlafgfgubs::::res://Art/Particles/Particle.png
-car.tscn::PackedScene::4491931716539641924::1705052682::0::1::::<><>::res://Scripts/Car.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
-coin.tscn::PackedScene::659022514446254848::1705052682::0::1::::<><>::res://Scripts/Coin.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
-main.tscn::PackedScene::6323869830720588503::1705052682::0::1::::<><>::res://Scripts/Camera.gd<>uid://debqpb2urr8ck::::res://Art/Ground.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>uid://cnjp17pv0yy1e::::res://Art/Structures/Library.png<>res://Scripts/GridSystem.gd<>uid://cjs7l4lexk18c::::res://Scenes/ui.tscn<>uid://b1acomgm2ndxy::::res://Art/Structures/Cinema.png<>uid://dfeatle6j6no8::::res://Art/Structures/Park.png<>uid://dhbxupkwup0e4::::res://Art/Structures/Restaurant.png<>uid://eov80m2kxj8k::::res://Art/Structures/Store.png<>res://Scripts/AudioManager.gd<>uid://crxjy5yns5l2a::::res://Music/Main_theme.ogg
-menu.tscn::PackedScene::5259222264478907518::1705052683::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>res://Scripts/MenuButtons.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
-Music.tscn::PackedScene::4210614232914250627::1705052683::0::1::::<><>::uid://crxjy5yns5l2a::::res://Music/Main_theme.ogg
-gameOver.tscn::PackedScene::8655253666565066968::1705052730::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>res://Scripts/MenuButtons.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
-struct_particles.tscn::PackedScene::8959718085852732937::1705052682::0::1::::<><>::uid://c0snlafgfgubs::::res://Art/Particles/Particle.png
-ui.tscn::PackedScene::5443663887585954636::1705052682::0::1::::<><>::res://Scripts/UI.gd<>uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/HoverState.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/TimeButton.gd
-::res://Scripts/::1705052475
-AudioManager.gd::GDScript::-1::1705047522::0::1::::<>Node<>::
-Bubble.gd::GDScript::-1::1705045373::0::1::::<>TextureProgressBar<>::
+building_particles.tscn::PackedScene::5983529744857786333::1705055395::0::1::::<><>::uid://c0snlafgfgubs
+car.tscn::PackedScene::4491931716539641924::1705055395::0::1::::<><>::res://Scripts/Car.gd<>uid://bsyp6pd30yi0f
+coin.tscn::PackedScene::659022514446254848::1705055395::0::1::::<><>::res://Scripts/Coin.gd<>uid://bsyp6pd30yi0f
+gameOver.tscn::PackedScene::8655253666565066968::1705061331::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>res://Scripts/GameOver.gd<>res://Scripts/MenuButtons.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/Settings.gd
+main.tscn::PackedScene::6323869830720588503::1705061331::0::1::::<><>::res://Scripts/Camera.gd<>uid://debqpb2urr8ck::::res://Art/Ground.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>uid://cnjp17pv0yy1e::::res://Art/Structures/Library.png<>res://Scripts/GridSystem.gd<>uid://cjs7l4lexk18c::::res://Scenes/ui.tscn<>uid://b1acomgm2ndxy::::res://Art/Structures/Cinema.png<>uid://dfeatle6j6no8::::res://Art/Structures/Park.png<>uid://dhbxupkwup0e4::::res://Art/Structures/Restaurant.png<>uid://eov80m2kxj8k::::res://Art/Structures/Store.png<>res://Scripts/AudioManager.gd
+menu.tscn::PackedScene::5259222264478907518::1705061331::0::1::::<><>::uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>res://Scripts/MenuButtons.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/Settings.gd<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png
+Music.tscn::PackedScene::4210614232914250627::1705056939::0::1::::<><>::uid://crxjy5yns5l2a
+struct_particles.tscn::PackedScene::8959718085852732937::1705055395::0::1::::<><>::uid://c0snlafgfgubs
+ui.tscn::PackedScene::5443663887585954636::1705061331::0::1::::<><>::res://Scripts/UI.gd<>uid://bpiqgttfuqcj2::::res://Art/UI/UI.png<>uid://bsyp6pd30yi0f::::res://Art/TileSet.png<>res://Scripts/HoverState.gd<>uid://cg62bx556p7xk::::res://Fonts/Pink and Crimson.otf<>res://Scripts/TimeButton.gd<>res://Scripts/Settings.gd
+::res://Scripts/::1705057172
+AudioManager.gd::GDScript::-1::1705056809::0::1::::<>Node<>::
+Bubble.gd::GDScript::-1::1705054569::0::1::::<>TextureProgressBar<>::
 Camera.gd::GDScript::-1::1704897695::0::1::::<>Camera2D<>::
 Car.gd::GDScript::-1::1705049505::0::1::::<>CharacterBody2D<>::
 Coin.gd::GDScript::-1::1705049650::0::1::::<>Node2D<>::
-Global.gd::GDScript::-1::1705045373::0::1::::<>Node<>::
-GridSystem.gd::GDScript::-1::1705050017::0::1::::<>TileMap<>::
+GameOver.gd::GDScript::-1::1705055821::0::1::::<>Node2D<>::
+Global.gd::GDScript::-1::1705056292::0::1::::<>Node<>::
+GridSystem.gd::GDScript::-1::1705055393::0::1::::<>TileMap<>::
 HoverState.gd::GDScript::-1::1705045901::0::1::::<>TextureButton<>::
-MenuButtons.gd::GDScript::-1::1705052475::0::1::::<>TextureButton<>::
-TimeButton.gd::GDScript::-1::1704824760::0::1::::<>TextureButton<>::
+MenuButtons.gd::GDScript::-1::1705053324::0::1::::<>TextureButton<>::
+MusicManager.gd::GDScript::-1::1705056754::0::1::::<>AudioStreamPlayer2D<>::
+Settings.gd::GDScript::-1::1705056898::0::1::::<>TextureRect<>::
+TimeButton.gd::GDScript::-1::1705057172::0::1::::<>TextureButton<>::
 UI.gd::GDScript::-1::1705045373::0::1::::<>CanvasLayer<>::
 ::res://Sounds/::1705045432
 Menu.wav::AudioStreamWAV::8086365916784489356::1705045373::1705045432::1::::<><>::

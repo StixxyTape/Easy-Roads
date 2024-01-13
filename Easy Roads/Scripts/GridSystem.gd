@@ -57,7 +57,7 @@ var touchedBuildingPos : Vector2
 var spawningHouse : bool = true
 
 # The cooldown between spawning houses
-var houseSpawnCooldown : int = 8
+var houseSpawnCooldown : int = 10
 
 # To keep track of the days and structures that have been built
 var passedDays : Array = []
@@ -283,7 +283,7 @@ func DayGridUpdate():
 			TimeSystem(start_x -5, start_y -4, width + 10, height + 8)
 			gridSize = 10
 			Global.bubbleTimer = 40
-			houseSpawnCooldown = 5
+			houseSpawnCooldown = 8
 		elif Global.day == 10:
 			TimeSystem(start_x -9, start_y -7, width + 18, height + 13)
 			gridSize = 12
