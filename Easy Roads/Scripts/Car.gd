@@ -143,7 +143,7 @@ func _physics_process(_delta):
 	if navAgent.is_target_reachable():
 		velocity = currentAgentPos.direction_to(nextPathPos) * Global.carSpeed * traffic
 		move_and_slide()
-
+	
 func eraseStartPoints():
 	for pos in adjectedTilesPos:
 		tileMap.erase_cell(3, pos)

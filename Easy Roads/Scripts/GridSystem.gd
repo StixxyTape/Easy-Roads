@@ -165,7 +165,7 @@ func SetupStructure():
 		Vector2(-2, 2), Vector2(-1, 2), Vector2(0, 2), Vector2(1, 2), Vector2(2, 2)
 	]
 	var gridOffsets = [
-		Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1),
+		#Vector2(-1, -1), Vector2(0, -1), Vector2(1, -1),
 		Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0),
 		Vector2(-1, 1), Vector2(0, 1), Vector2(1, 1)
 	]
@@ -233,15 +233,30 @@ func SetupStructure():
 		var gridPos = Vector2(randX, randY) + offset
 		var leftEntrance = Vector2(randX, randY) + Vector2(-2, 1)
 		var rightEntrance = Vector2(randX, randY) + Vector2(2, 1)
-
+		var upperMidRight = Vector2(randX, randY) + Vector2(1, -1)
+		var upperMid = Vector2(randX, randY) + Vector2(0, -1)
+		var upperMidLeft = Vector2(randX, randY) + Vector2(-1, -1)
+		
 		erase_cell(0, gridPos)
-
+		erase_cell(2, gridPos)
+		erase_cell(3, gridPos)
+		
 		if dic.has(str(leftEntrance)):
 			dic.erase(str(leftEntrance))
 			erase_cell(0, leftEntrance)
 		if dic.has(str(rightEntrance)):
 			dic.erase(str(rightEntrance))
 			erase_cell(0, rightEntrance)
+		if dic.has(str(upperMidRight)):
+			dic.erase(str(upperMidRight))
+			erase_cell(0, upperMidRight)
+		if dic.has(str(upperMid)):
+			dic.erase(str(upperMid))
+			erase_cell(0, upperMid)
+		if dic.has(str(upperMidLeft)):
+			dic.erase(str(upperMidLeft))
+			erase_cell(0, upperMidLeft)
+			
 			
 		dic[str(gridPos)] = {
 			"Type" : structName,

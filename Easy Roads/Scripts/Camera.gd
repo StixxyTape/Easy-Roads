@@ -22,12 +22,12 @@ func _process(delta):
 	if Input.is_action_pressed("Down") and position.y < 200:
 		position += Vector2(0, 1)
 	# Smoothly interpolate between the current zoom and the target zoom
-	if Global.day == 4:
-		target_zoom = Vector2(1.7,1.7)
-		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
-	elif Global.day == 8:
-		target_zoom = Vector2(1.4,1.4)
-		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
-	elif Global.day == 10:
-		target_zoom = Vector2(1.2,1.2)
-		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
+#	if Global.day == 4:
+#		target_zoom = Vector2(1.7,1.7)
+#		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
+#	elif Global.day == 8:
+#		target_zoom = Vector2(1.4,1.4)
+#		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
+#	elif Global.day == 10:
+#		target_zoom = Vector2(1.2,1.2)
+#		zoom = lerp(zoom, target_zoom, delta * zoom_speed)
