@@ -1,18 +1,14 @@
-Connection Maker (to be changed)
+Easy Roads
 
-The game will be based on a grid-based building system.
-Your job is to hook up your town so that all the citizens needs is met.
-At the start of the game, 5 main buildings will spawn somewhere random on the map.
-Overtime, houses will spawn in. These houses will request to go to one of the main buildings.
-As the game progresses, the houses will level up and want to go to multiple buildings.
-To make sure their needs are met, you will have to build roads and infrastructure.
-Everytime a request is fulfilled, you earn money to spend on more roads and infrastructure.
-If a house goes too long without their needs being met, you lose the game.
-This can happen due to the roads getting too clogged, so you need to watch out for traffic.
+A not so easy game about managing a developing city's road infrastructure. Make sure each house gets to their destination on time or else you'll get fired!
 
-Polish:
-Camera Controls (moving to grid limit)
-Make Cars drive out of house instead of spawning ontop of house
-Fix Roundabout Navigation Polygon
-Fix Car rotation + offset
-Add bubble jitter when it gets close to expiring
+Houses will spawn over time and your job is to build roads and hook them up to the large structures around the map. You earn money when a house reaches it's destination, so the more efficient your roads, the better. The more you play, the more houses and structures spawn in, so be warned that things can get very hectic very quickly!
+
+Controls:
+
+    Move Camera: WASD
+    Zoom In/Out: Scroll Wheel
+    Pause/Unpause Time: Left Click The Play/Pause Button
+    Select/Place Road: Left Click
+    Place/Remove Multiple Roads: Hold Left/Right Click
+    Rotate Roads: R
