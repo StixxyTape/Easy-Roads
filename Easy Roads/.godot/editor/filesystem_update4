@@ -1,9 +1,0 @@
-res://Scenes/bubble.tscn
-res://Scripts/Global.gd
-res://Scripts/GridSystem.gd
-res://Scenes/menu.tscn
-res://Scenes/main.tscn
-res://Scenes/ui.tscn
-res://Scripts/UI.gd
-res://Scenes/arrow.tscn
-res://Scripts/HoverState.gd
