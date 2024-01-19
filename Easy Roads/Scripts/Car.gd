@@ -132,7 +132,7 @@ func _physics_process(_delta):
 		return
 		
 	# If destination is not reachable and your position is not where you spawned, respawn
-	elif (!navAgent.is_target_reachable() and position != spawnPos):
+	if ((!navAgent.is_target_reachable() and position != spawnPos) or (tileMap.get_cell_atlas_coords(0, carTilePos) in houseTiles and carTilePos != houseCord)):
 		tileMap.set_cell(5, houseCord, 2, Vector2i(1, 1))
 		adjectedTilePlaced = false
 		visible = false
