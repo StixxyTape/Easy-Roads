@@ -7,10 +7,6 @@ var open : bool
 
 var selectSound = preload("res://Sounds/Menu.wav")
 
-func _ready():
-	self.mouse_entered.connect(_on_button_hovered)
-	self.mouse_exited.connect(_on_button_exit)
-	
 func _process(_delta):
 	if Global.music:
 		musicLabel.text = "On"
@@ -21,12 +17,7 @@ func _process(_delta):
 		audioLabel.text = "On"
 	else:
 		audioLabel.text = "Off"
-
-func _on_button_hovered():
-	Global.overButton = true
-func _on_button_exit():
-	Global.overButton = false
-	
+		
 func _on_settings_button_pressed():
 	if open and !Global.tutorial:
 		open = false
@@ -50,4 +41,20 @@ func _on_settings_button_mouse_entered():
 
 
 func _on_settings_button_mouse_exited():
+	Global.overButton = false
+
+
+func _on_music_button_mouse_entered():
+	Global.overButton = true
+
+
+func _on_music_button_mouse_exited():
+	Global.overButton = false
+
+
+func _on_audio_button_mouse_entered():
+	Global.overButton = true
+
+
+func _on_audio_button_mouse_exited():
 	Global.overButton = false
